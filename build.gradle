@@ -32,10 +32,16 @@ dependencies{
     compileOnly "com.github.Anuken.Arc:arc-core:$mindustryVersion"
     compileOnly "com.github.Anuken.Mindustry:core:$mindustryVersion"
     annotationProcessor "com.github.Anuken:jabel:$jabelVersion"
+    implementation "org.mongodb:mongodb-driver-sync:4.10.1"
+    implementation "org.mongodb:mongodb-driver-core:4.10.1"
+    implementation "org.mongodb:bson:4.10.1"
+    implementation "org.javacord:javacord:3.8.0"
 }
 
 jar{
     archiveFileName = "${project.archivesBaseName}.jar"
+    exclude 'META-INF/.RSA', 'META-INF/.SF','META-INF/*.DSA'
+    duplicatesStrategy=DuplicatesStrategy.EXCLUDE
     from{
         configurations.runtimeClasspath.collect{it.isDirectory() ? it : zipTree(it)}
     }
