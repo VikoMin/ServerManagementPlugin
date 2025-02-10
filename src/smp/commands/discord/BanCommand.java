@@ -1,16 +1,15 @@
 package smp.commands.discord;
 
 import org.javacord.api.event.message.MessageCreateEvent;
-import smp.database.FindPlayerData;
+import smp.database.players.FindPlayerData;
 import smp.functions.Utilities;
-import smp.functions.Wrappers;
 import smp.models.PlayerData;
 
 import java.util.Date;
 
 import static arc.util.Strings.canParseInt;
 import static java.lang.Integer.parseInt;
-import static smp.database.PlayerFunctions.updateData;
+import static smp.database.players.PlayerFunctions.updateData;
 import static smp.functions.Wrappers.formatBanTime;
 
 public class BanCommand extends DiscordCommand {

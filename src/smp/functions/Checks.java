@@ -12,8 +12,8 @@ import java.util.Date;
 import java.util.List;
 
 import static smp.Variables.*;
-import static smp.database.FindPlayerData.getPlayerDataAnyway;
-import static smp.database.FindPlayerData.getPlayerDataByIP;
+import static smp.database.players.FindPlayerData.getPlayerDataAnyway;
+import static smp.database.players.FindPlayerData.getPlayerDataByIP;
 import static smp.functions.Utilities.notNullElse;
 import static smp.functions.Wrappers.timeToDuration;
 

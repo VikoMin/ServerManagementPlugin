@@ -1,16 +1,13 @@
-package smp.database;
+package smp.database.settings;
 
 import arc.Core;
-import mindustry.Vars;
-import mindustry.gen.Player;
-import smp.models.PlayerData;
+import com.mongodb.client.model.ReplaceOptions;
 import smp.models.Setting;
 
 import java.net.UnknownHostException;
 import java.util.Optional;
 
 import static com.mongodb.client.model.Filters.eq;
-import static smp.database.InitializeDatabase.collection;
 import static smp.database.InitializeDatabase.settingCollection;
 
 public class FindSetting {
@@ -22,7 +19,10 @@ public class FindSetting {
     }
 
     public static Setting findSetting(int port){
+        return settingCollection.find(eq("port", port)).first();
+    }
 
-        return null;
+    public static void updateSetting(Setting setting){
+        settingCollection.replaceOne(eq("port", setting.port), setting, new ReplaceOptions().upsert(true));
     }
 }

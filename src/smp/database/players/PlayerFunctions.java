@@ -1,4 +1,4 @@
-package smp.database;
+package smp.database.players;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.model.ReplaceOptions;

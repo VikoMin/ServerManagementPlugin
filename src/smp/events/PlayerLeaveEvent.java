@@ -5,7 +5,7 @@ import mindustry.gen.Call;
 import mindustry.gen.Player;
 import smp.models.PlayerData;
 
-import static smp.database.PlayerFunctions.findPlayerDataOrCreate;
+import static smp.database.players.PlayerFunctions.findPlayerDataOrCreate;
 
 public class PlayerLeaveEvent {
     public static void leaveEvent(Player player){

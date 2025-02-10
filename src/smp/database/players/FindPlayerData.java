@@ -1,7 +1,6 @@
-package smp.database;
+package smp.database.players;
 
 import com.mongodb.client.model.Filters;
-import mindustry.Vars;
 import smp.models.PlayerData;
 
 

@@ -1,16 +1,10 @@
 package smp.commands.discord;
 
-import mindustry.gen.Groups;
-import mindustry.gen.Player;
 import org.javacord.api.event.message.MessageCreateEvent;
-import smp.database.FindPlayerData;
+import smp.database.players.FindPlayerData;
 import smp.models.PlayerData;
 
-import java.util.Arrays;
-
-import static mindustry.Vars.netServer;
-import static smp.database.PlayerFunctions.updateData;
-import static smp.other.Ranks.ranks;
+import static smp.database.players.PlayerFunctions.updateData;
 
 public class SetRankCommand extends DiscordCommand {
     public SetRankCommand() {

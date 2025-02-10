@@ -3,15 +3,13 @@ package smp.functions;
 import mindustry.gen.Call;
 import mindustry.gen.Player;
 import org.javacord.api.entity.user.User;
-import org.javacord.api.event.message.MessageCreateEvent;
-import org.javacord.api.listener.message.MessageCreateListener;
 import smp.models.PlayerData;
 
 import java.util.Date;
 
 import static java.lang.Long.parseLong;
 import static smp.Variables.discordURL;
-import static smp.database.PlayerFunctions.updateData;
+import static smp.database.players.PlayerFunctions.updateData;
 import static smp.discord.Bot.messageLogChannel;
 import static smp.discord.embeds.BanEmbed.banEmbed;
 import static smp.functions.FindPlayer.findPlayerByName;

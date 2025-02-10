@@ -12,6 +12,7 @@ import org.bson.codecs.configuration.CodecProvider;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
 import smp.models.PlayerData;
+import smp.models.Rank;
 import smp.models.Setting;
 
 import java.util.Scanner;
@@ -26,6 +27,7 @@ public class InitializeDatabase {
     public static MongoDatabase db;
     public static MongoCollection<PlayerData> collection;
     public static MongoCollection<Setting> settingCollection;
+    public static MongoCollection<Rank> rankCollection;
     public static String connectionString = "";
 
     public static void initDatabase(){
@@ -50,5 +52,6 @@ public class InitializeDatabase {
         db = mongoClient.getDatabase("mindustry").withCodecRegistry(pojoCodecRegistry);
         collection = db.getCollection("newplayers", PlayerData.class);
         settingCollection = db.getCollection("settings", Setting.class);
+        rankCollection = db.getCollection("ranks", Rank.class);
     }
 }

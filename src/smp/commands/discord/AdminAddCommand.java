@@ -1,15 +1,10 @@
 package smp.commands.discord;
 
-import arc.Core;
 import mindustry.gen.Groups;
 import mindustry.gen.Player;
-import mindustry.net.Administration;
 import org.javacord.api.event.message.MessageCreateEvent;
-import smp.database.FindPlayerData;
-import smp.models.PlayerData;
 
 import static mindustry.Vars.netServer;
-import static mindustry.Vars.player;
 
 public class AdminAddCommand extends DiscordCommand {
     public AdminAddCommand() {

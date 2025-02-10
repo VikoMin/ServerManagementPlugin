@@ -12,7 +12,7 @@ import smp.commands.discord.*;
 import smp.models.PlayerData;
 
 import static smp.commands.CommandRegister.registerDiscordCommand;
-import static smp.database.FindPlayerData.getPlayerData;
+import static smp.database.players.FindPlayerData.getPlayerData;
 
 public class Bot {
     public static TextChannel messageLogChannel;
@@ -29,12 +29,19 @@ public class Bot {
         AdminRewCommand adminRewCommand = new AdminRewCommand();
         HelpCommand helpCommand = new HelpCommand();
         SetRankCommand setRankCommand = new SetRankCommand();
-        registerDiscordCommand(listPlayersCommand);
-        registerDiscordCommand(adminAddCommand);
-        registerDiscordCommand(adminRewCommand);
-        registerDiscordCommand(helpCommand);
-        registerDiscordCommand(setRankCommand);
-
+        BanCommand banCommand = new BanCommand();
+        UnbanCommand unbanCommand = new UnbanCommand();
+        CreateRankCommand createRankCommand = new CreateRankCommand();
+        SearchCommand searchCommand = new SearchCommand();
+        registerDiscordCommand(listPlayersCommand,
+                adminAddCommand,
+                adminRewCommand,
+                helpCommand,
+                setRankCommand,
+                banCommand,
+                unbanCommand,
+                createRankCommand,
+                searchCommand);
         Events.on(EventType.PlayerChatEvent.class, event  -> {
             if (event.message.startsWith("/")) {
                 return;

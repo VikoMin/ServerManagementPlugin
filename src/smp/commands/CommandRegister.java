@@ -42,8 +42,10 @@ public class CommandRegister<T extends BasicCommand<Player>> {
             }
         }
     }
-    public static void registerDiscordCommand(DiscordCommand commands) {
-        discordCommands.add(commands);
+    public static void registerDiscordCommand(DiscordCommand... commands) {
+        for (var command : commands) {
+            discordCommands.add(command);
+        }
     }
     public void updateCommands(){
         for (CommandHandler.Command cmd : Vars.netServer.clientCommands.getCommandList()){

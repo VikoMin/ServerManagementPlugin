@@ -5,10 +5,8 @@ import smp.models.PlayerData;
 
 import static arc.util.Strings.canParseInt;
 import static arc.util.Strings.parseInt;
-import static smp.database.FindPlayerData.getPlayerData;
-import static smp.database.FindPlayerData.getPlayerDataAnyway;
+import static smp.database.players.FindPlayerData.getPlayerData;
 import static smp.errors.MindustryErrors.*;
-import static smp.functions.FindPlayer.findPlayerByName;
 import static smp.history.History.revert;
 
 public class RevertCommand extends BasicAdminCommand {

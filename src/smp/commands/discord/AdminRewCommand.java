@@ -1,9 +1,8 @@
 package smp.commands.discord;
 
 import mindustry.gen.Groups;
-import mindustry.gen.Player;
 import org.javacord.api.event.message.MessageCreateEvent;
-import smp.database.FindPlayerData;
+import smp.database.players.FindPlayerData;
 import smp.models.PlayerData;
 
 import java.util.Objects;

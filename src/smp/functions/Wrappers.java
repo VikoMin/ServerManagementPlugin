@@ -1,19 +1,26 @@
 package smp.functions;
 
 import smp.models.PlayerData;
-import smp.other.Ranks;
+import smp.models.Rank;
+import smp.other.InitializeRanks;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static arc.util.Strings.canParseInt;
 import static arc.util.Strings.parseInt;
+import static smp.database.ranks.FindRank.findRank;
 
 public class Wrappers {
     public static String statsWrapper(PlayerData data){
+        Rank rank = findRank(data.rank);
        StringBuilder out = new StringBuilder();
        out.append("[orange]Player name: ").append(data.name).append("\n");
-       out.append("[orange]Rank: ").append(Ranks.rankName(data.rank)).append("\n");
+       if (rank == null) {
+           out.append("[orange]Rank: ").append(rank.rankName).append("\n");
+       } else {
+           out.append("[orange]Rank: ").append("None").append("\n");
+       }
        out.append("[orange]Playtime: ").append(data.playtime).append(" minutes").append("\n");
        return out.toString();
     };

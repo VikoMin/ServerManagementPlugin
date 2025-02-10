@@ -13,20 +13,23 @@ public class Rank {
     public int priotity;
     public String rankId;
     public String rankName;
+    public String rankPrefix;
     public boolean adminPerms = false;
     public boolean consolePerms = false;
 
     public Rank(){
     }
-    public Rank(String rankId, String rankName, int priority){
+    public Rank(String rankId, String rankName, String rankPrefix, int priority){
         this.rankId = rankId;
         this.rankName = rankName;
+        this.rankPrefix = rankPrefix;
         this.priotity = priority;
     }
     public void changeValue(String key, Object value){
         switch (key) {
             case "rankId": rankId = (String) value;
             case "rankName": rankName = (String) value;
+            case "rankPrefix": rankPrefix = (String) value;
             case "priority": priotity = (int) value;
             case "adminPerms": adminPerms = (boolean) value;
             case "consolePerms": consolePerms = (boolean) value;

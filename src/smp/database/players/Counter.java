@@ -1,15 +1,12 @@
-package smp.database;
+package smp.database.players;
 
-import arc.util.Log;
 import arc.util.Timer;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.model.Filters;
 import mindustry.gen.Groups;
 import mindustry.gen.Player;
 import smp.models.PlayerData;
 
-import static smp.database.FindPlayerData.getPlayerData;
-import static smp.database.PlayerFunctions.updateData;
+import static smp.database.players.FindPlayerData.getPlayerData;
+import static smp.database.players.PlayerFunctions.updateData;
 
 public class Counter {
     public static void initializeCounter(){

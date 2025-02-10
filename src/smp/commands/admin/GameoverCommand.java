@@ -4,11 +4,8 @@ import arc.Events;
 import mindustry.game.EventType;
 import mindustry.game.Team;
 import mindustry.gen.Player;
-import smp.errors.MindustryErrors;
-import smp.models.PlayerData;
 
-import static smp.database.FindPlayerData.getPlayerDataAnyway;
-import static smp.database.PlayerFunctions.updateData;
+import static smp.database.players.PlayerFunctions.updateData;
 
 public class GameoverCommand extends BasicAdminCommand {
     public GameoverCommand() {

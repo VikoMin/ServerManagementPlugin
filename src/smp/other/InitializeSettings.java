@@ -1,0 +1,49 @@
+package smp.other;
+
+import arc.Core;
+import smp.Variables;
+import smp.discord.DiscordCommandHandler;
+import smp.models.Setting;
+
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
+import static smp.database.settings.FindSetting.findSettingOrCreate;
+import static smp.database.settings.FindSetting.updateSetting;
+
+public class InitializeSettings {
+
+    public static void initializeSettings() throws UnknownHostException {
+        Setting setting = findSettingOrCreate();
+        if (setting.discordPrefix == "none"){
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.println("Looks like you don't have your prefix set up! Please, type the prefix for discord bot" +
+                    "(ex: sbx. Each command will have to start with sbx):\n");
+
+            setting.changeValue("discordPrefix", scanner.next());
+
+            DiscordCommandHandler.prefix = setting.discordPrefix;
+            scanner.close();
+        }
+
+        if (setting.discordURL == "none"){
+            Scanner scanner = new Scanner(System.in);
+
+            System.out.println("Looks like you don't have your discord server URL set up! Please, type the discord server URL for people to join!" +
+                    ":\n");
+
+            setting.changeValue("discordURL", scanner.next());
+
+            Variables.discordURL = setting.discordURL;
+            scanner.close();
+        }
+
+        setting.changeValue("serverName", Core.settings.getString("name"));
+        setting.changeValue("serverDescription", Core.settings.getString("desc"));
+
+        updateSetting(setting);
+
+        System.out.println("Configuration has been checked, if you willing to perform any changes - make sure to use 'settingchange' command!");
+    }
+}

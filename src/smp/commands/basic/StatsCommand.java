@@ -2,7 +2,7 @@ package smp.commands.basic;
 
 import mindustry.gen.Player;
 import smp.commands.BasicCommand;
-import smp.database.FindPlayerData;
+import smp.database.players.FindPlayerData;
 import smp.errors.MindustryErrors;
 import smp.menus.Menus.StatsMenu;
 import smp.models.PlayerData;

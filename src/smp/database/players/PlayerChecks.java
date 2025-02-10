@@ -1,42 +1,40 @@
-package smp.database;
+package smp.database.players;
 
-import arc.struct.ObjectSet;
 import arc.util.Log;
 import arc.util.Timer;
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
-import mindustry.Vars;
 import mindustry.gen.Groups;
 import mindustry.gen.Player;
-import mindustry.net.Administration;
 import mindustry.net.NetConnection;
 import smp.models.PlayerData;
+import smp.models.Rank;
 
 import java.util.Objects;
 
 import static com.mongodb.client.model.Filters.eq;
-import static smp.database.FindPlayerData.getPlayerData;
-import static smp.database.FindPlayerData.getPlayerDataByIP;
+import static smp.database.players.FindPlayerData.getPlayerData;
+import static smp.database.players.FindPlayerData.getPlayerDataByIP;
 import static smp.database.InitializeDatabase.collection;
+import static smp.database.ranks.FindRank.findRank;
 
 public class PlayerChecks {
     public static void MongoDbPlayerRankCheck(String uuid) {
         Player eventPlayer = Groups.player.find(p -> p.uuid().contains(uuid));
+
         if (eventPlayer == null) return;
+
         PlayerData data = getPlayerData(uuid);
+        Rank rank = findRank(data.rank);
         String tempName = data.rawName;
+
+        if (rank == null) return;
+
         if (!Objects.equals(data.customPrefix, "<none>")){
             eventPlayer.name = data.customPrefix + " [" + "#" + eventPlayer.color.toString() + "]" + tempName;
         } else {
-            switch (data.rank) {
-                case "player" -> eventPlayer.name = "[white]<P>" +" [" + "#" + eventPlayer.color.toString() + "]" + tempName;
-                case "trusted" -> eventPlayer.name = "[blue]<T>" +" [" + "#" + eventPlayer.color.toString() + "]" + tempName;
-                case "admin" -> eventPlayer.name = "[#f]<A>" +" [" + "#" + eventPlayer.color.toString() + "]" + tempName;
-                case "console" -> eventPlayer.name = "[purple]<C>" +" [" + "#" + eventPlayer.color.toString() + "]" + tempName;
-                case "owner" -> eventPlayer.name = "[cyan]<O>" +" [" + "#" + eventPlayer.color.toString() + "]" + tempName;
-            }
+            eventPlayer.name = rank.rankPrefix +" [" + "#" + eventPlayer.color.toString() + "]" + tempName;
         }
     }
 
@@ -50,16 +48,6 @@ public class PlayerChecks {
     }
     public static <T> void MongoDbUpdate(PlayerData data){
         collection.replaceOne(eq("_id", data.id), data, new ReplaceOptions().upsert(true));
-    }
-    public static void MongoDbPlaytimeTimer(){
-        Timer.schedule(() -> {
-            for (Player player : Groups.player){
-                PlayerData data = getPlayerData(player.uuid());
-                if (data == null) return;
-                data.playtime += 1;
-                MongoDbUpdate(data);
-            }
-        }, 0, 60);
     }
     public static void MongoDbCheck(){
         try (MongoCursor<PlayerData> cursor = collection.find(Filters.gte("playtime", 2250)).iterator()) {

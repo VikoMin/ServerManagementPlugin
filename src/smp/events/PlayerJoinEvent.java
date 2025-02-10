@@ -6,9 +6,9 @@ import mindustry.gen.Call;
 import mindustry.gen.Player;
 import smp.models.PlayerData;
 
-import static smp.database.PlayerChecks.MongoDbPlayerRankCheck;
-import static smp.database.PlayerFunctions.fillData;
-import static smp.database.PlayerFunctions.findPlayerDataOrCreate;
+import static smp.database.players.PlayerChecks.MongoDbPlayerRankCheck;
+import static smp.database.players.PlayerFunctions.fillData;
+import static smp.database.players.PlayerFunctions.findPlayerDataOrCreate;
 import static smp.functions.Checks.kickIfBanned;
 
 public class PlayerJoinEvent {

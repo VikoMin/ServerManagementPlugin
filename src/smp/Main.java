@@ -10,12 +10,15 @@ import smp.commands.CommandRegister;
 import smp.commands.admin.AdminChatCommand;
 import smp.commands.admin.RevertCommand;
 import smp.commands.basic.*;
+import smp.database.players.Counter;
+
+import java.net.UnknownHostException;
 
 import static mindustry.Vars.netServer;
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 import static smp.antigrief.NodeGriefingWarning.initializeNodeGriefingWarnings;
-import static smp.database.PlayerChecks.*;
+import static smp.database.players.PlayerChecks.*;
 import static smp.discord.Bot.initBot;
 import static smp.database.InitializeDatabase.initDatabase;
 import static smp.events.PlayerJoinEvent.joinEvent;
@@ -24,6 +27,8 @@ import static smp.functions.Checks.kickIfBanned;
 import static smp.history.History.loadHistory;
 import static smp.history.History.loadRevert;
 import static smp.other.BanMenu.loadBanMenu;
+import static smp.other.InitializeRanks.initializeRanks;
+import static smp.other.InitializeSettings.initializeSettings;
 
 public class Main extends Plugin{
     public static CommandRegister register;
@@ -37,8 +42,14 @@ public class Main extends Plugin{
         loadBanMenu();
         initBot();
         initializeNodeGriefingWarnings();
-        MongoDbPlaytimeTimer();
+        initializeRanks();
+        Counter.initializeCounter();
         MongoDbCheck();
+        try {
+            initializeSettings();
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
         Events.on(EventType.PlayerJoin.class, plr -> {
             joinEvent(plr.player);
         });
@@ -74,6 +85,7 @@ public class Main extends Plugin{
         VoteCommand voteCommand = new VoteCommand();
         HistoryCommand historyCommand = new HistoryCommand();
         StatsCommand statsCommands = new StatsCommand();
+        ServerHopCommand serverHopCommand = new ServerHopCommand();
         register = new CommandRegister(handler);
         register.updateCommands();
         register.registerCommand(testCommand);
@@ -82,7 +94,10 @@ public class Main extends Plugin{
         register.registerCommand(syncCommand);
         register.registerCommand(teamChatCommand);
         register.registerCommand(votekickCommand);
-        register.registerCommand(voteCommand, historyCommand, statsCommands);
+        register.registerCommand(voteCommand,
+                historyCommand,
+                statsCommands,
+                serverHopCommand);
 
         /* admin commands */
 

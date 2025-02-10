@@ -9,13 +9,13 @@ import java.net.UnknownHostException;
 
 public class Setting {
     private static Setting setting;
-    public String discordURL;
+    public String discordURL = "none";
     public String ip = Inet4Address.getLocalHost().getHostAddress();
     public int port = Core.settings.getInt("port");
     public String serverName = Core.settings.getString("name");
     public String serverDescription = Core.settings.getString("desc");
     public String type = "default";
-    public String discordPrefix;
+    public String discordPrefix = "none";
 
     public Setting() throws UnknownHostException {
     }
