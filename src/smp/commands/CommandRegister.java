@@ -5,7 +5,7 @@ import arc.util.CommandHandler;
 import arc.util.Log;
 import mindustry.Vars;
 import mindustry.gen.Player;
-import smp.commands.discord.DiscordCommand;
+import smp.commands.ds.discord.DiscordCommand;
 
 import static arc.util.Log.log;
 

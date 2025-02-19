@@ -6,7 +6,7 @@ import arc.util.Timekeeper;
 import mindustry.core.NetServer;
 import mindustry.gen.Groups;
 import mindustry.net.Administration;
-import smp.commands.basic.VotekickCommand;
+import smp.commands.mindustry.basic.VotekickCommand;
 
 public class Variables {
 
@@ -30,11 +30,16 @@ public class Variables {
 
     public static NetServer.ChatFormatter chatFormatter = (player, message) -> player == null ? message : "[coral][[" + player.coloredName() + "[coral]]:[white] " + message;
 
-    public static long mindustryModeratorID = 1127228853505507359L;
+    public static long mindustryModeratorID;
 
-    public static long mindustryConsoleID = 1127228950633005067L;
+    public static long mindustryConsoleID;
 
-    public static long messageLogChannelID = 1134453759959896096L;
+    public static long messageLogChannelID;
+
+    public static long messageBanLogChannelID;
 
     public static String discordURL;
+
+    public static String discordToken;
+
 }

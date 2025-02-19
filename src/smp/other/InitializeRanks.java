@@ -16,6 +16,7 @@ public class InitializeRanks {
     public static Seq<Rank> ranks = new Seq<>();
 
     public static void initializeRanks (){
+        ranks.clear();
         try (MongoCursor<Rank> cursor = rankCollection.find().iterator()) {
             while (cursor.hasNext()) {
                 Rank rank = cursor.next();

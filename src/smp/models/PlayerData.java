@@ -12,7 +12,6 @@ import static arc.util.Strings.canParseInt;
 import static smp.functions.Utilities.canParseLong;
 
 public class PlayerData {
-    private static PlayerData playerData;
     public String uuid;
     public int id;
     public String name = "<none>";
@@ -20,7 +19,7 @@ public class PlayerData {
     public String rank = "player";
     public String joinMessage = "@ joined!";
     public String ip = "<none>";
-    public long lastBan = 0;
+    public ArrayList<Punishment> punishments = new ArrayList<>();
     public long discordId = 0;
     public ArrayList<String> achievements = new ArrayList<>();
     public int playtime = 0;
@@ -35,34 +34,34 @@ public class PlayerData {
         this.uuid = uuid;
         this.id = id;
     }
-    public void changeValue(String key, String value, Player player){
+    public void changeValue(String key, Object value, Player player){
         switch (key) {
-            case "uuid": uuid = value; return;
-            case "name": name = value; return;
-            case "rawname": rawName = value; return;
-            case "rank": rank = value; return;
-            case "joinMessage": joinMessage = value; return;
-            case "ip": ip = value; return;
-            case "lastBan": if(canParseLong(value)) lastBan = Long.parseLong(value); else player.sendMessage("[red]Incorrect value!"); return;
-            case "discordId":  if(canParseLong(value)) discordId = Long.parseLong(value); else player.sendMessage("[red]Incorrect value!"); return;
-            case "playtime": if (canParseInt(value)) id = Integer.parseInt(value); else player.sendMessage("[red]Incorrect value!"); return;
-            case "customPrefix": customPrefix = value; return;
+            case "uuid": uuid = (String) value; return;
+            case "name": name = (String) value; return;
+            case "rawname": rawName = (String) value; return;
+            case "rank": rank = (String) value; return;
+            case "joinMessage": joinMessage = (String) value; return;
+            case "ip": ip = (String) value; return;
+            case "punishments": punishments = (ArrayList<Punishment>) value; return;
+            case "discordId":  if(canParseLong((String) value)) discordId = Long.parseLong((String) value); return;
+            case "playtime": if (canParseInt((String) value)) id = Integer.parseInt((String) value); return;
+            case "customPrefix": customPrefix = (String) value; return;
             default: player.sendMessage("[red]No such key!");
         }
     }
 
-    public void changeValue(String key, String value){
+    public void changeValue(String key, Object value){
         switch (key) {
-            case "uuid": uuid = value; return;
-            case "name": name = value; return;
-            case "rawname": rawName = value; return;
-            case "rank": rank = value; return;
-            case "joinMessage": joinMessage = value; return;
-            case "ip": ip = value; return;
-            case "lastBan": if(canParseLong(value)) lastBan = Long.parseLong(value); return;
-            case "discordId":  if(canParseLong(value)) discordId = Long.parseLong(value); return;
-            case "playtime": if (canParseInt(value)) id = Integer.parseInt(value); return;
-            case "customPrefix": customPrefix = value;
+            case "uuid": uuid = (String) value; return;
+            case "name": name = (String) value; return;
+            case "rawname": rawName = (String) value; return;
+            case "rank": rank = (String) value; return;
+            case "joinMessage": joinMessage = (String) value; return;
+            case "ip": ip = (String) value; return;
+            case "punishments": punishments = (ArrayList<Punishment>) value; return;
+            case "discordId":  if(canParseLong((String) value)) discordId = Long.parseLong((String) value); return;
+            case "playtime": if (canParseInt((String) value)) id = Integer.parseInt((String) value); return;
+            case "customPrefix": customPrefix = (String) value;
         }
     }
 }

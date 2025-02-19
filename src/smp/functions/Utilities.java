@@ -1,11 +1,15 @@
 package smp.functions;
 
+import arc.Core;
 import mindustry.gen.Call;
 import mindustry.gen.Player;
 import org.javacord.api.entity.user.User;
 import smp.models.PlayerData;
+import smp.models.Punishment;
 
 import java.util.Date;
+import java.util.Objects;
+import java.util.Scanner;
 
 import static java.lang.Long.parseLong;
 import static smp.Variables.discordURL;
@@ -25,7 +29,7 @@ public class Utilities {
     public static void banPlayer(Date date, String reason, PlayerData data, Player moderator){
         data.changeValue("lastBan", String.valueOf(date.getTime()));
         Player plr = findPlayerByName(data.name);
-        if (!plr.isNull()){
+        if (plr != null){
             Call.sendMessage(plr.plainName() + " has been banned for: " + reason);
             plr.con.kick("[red]You have been banned!\n\n" + "[white]Reason: " + reason +"\nDuration: " + timeToDuration(date.getTime()) + " until unban\nIf you think this is a mistake, make sure to appeal ban in our discord: " + discordURL, 0);
         }
@@ -34,9 +38,10 @@ public class Utilities {
     }
 
     public static void banPlayer(Date date, String reason, PlayerData data, User moderator){
-        data.changeValue("lastBan", String.valueOf(date.getTime()));
+        Punishment punishment = new Punishment("ban", date.getTime(), reason, moderator.getName());
+        data.punishments.add(punishment);
         Player plr = findPlayerByName(data.name);
-        if (!plr.isNull()){
+        if (plr != null){
             Call.sendMessage(plr.plainName() + " has been banned for: " + reason);
             plr.con.kick("[red]You have been banned!\n\n" + "[white]Reason: " + reason +"\nDuration: " + timeToDuration(date.getTime()) + " until unban\nIf you think this is a mistake, make sure to appeal ban in our discord: " + discordURL, 0);
         }
@@ -47,5 +52,25 @@ public class Utilities {
     public static void unbanPlayer(PlayerData data){
         data.changeValue("lastBan", "0");
         updateData(data);
+    }
+
+    public static void makeCoreSettingString(String settingInputText, String settingName){
+        if (Objects.equals(Core.settings.getString(settingName), "none") || Core.settings.getString(settingName) == null) {
+            Scanner inp = new Scanner(System.in);
+            System.out.println(settingInputText);
+            String settingValue = inp.next();
+            Core.settings.put(settingName, settingValue);
+            inp.close();
+        }
+    }
+
+    public static void makeCoreSettingLong(String settingInputText, String settingName){
+        if (Objects.equals(Core.settings.getLong(settingName), 0L) || Core.settings.getLong(settingName) == null) {
+            Scanner inp = new Scanner(System.in);
+            System.out.println(settingInputText);
+            Long settingValue = inp.nextLong();
+            Core.settings.put(settingName, settingValue);
+            inp.close();
+        }
     }
 }

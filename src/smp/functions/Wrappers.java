@@ -16,7 +16,7 @@ public class Wrappers {
         Rank rank = findRank(data.rank);
        StringBuilder out = new StringBuilder();
        out.append("[orange]Player name: ").append(data.name).append("\n");
-       if (rank == null) {
+       if (rank != null) {
            out.append("[orange]Rank: ").append(rank.rankName).append("\n");
        } else {
            out.append("[orange]Rank: ").append("None").append("\n");

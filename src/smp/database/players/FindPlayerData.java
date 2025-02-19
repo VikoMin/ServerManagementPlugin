@@ -27,6 +27,9 @@ public class FindPlayerData {
     public static PlayerData getPlayerDataByIP(String ip){
         return collection.find(eq("ip", ip)).first();
     }
+    public static PlayerData getPlayerDataByDiscordID(long discordID){
+        return collection.find(eq("discordId", discordID)).first();
+    }
     public static PlayerData getPlayerDataAnyway(String uuidOrNameOrIDOrIp){
         if (canParseInt(uuidOrNameOrIDOrIp)){
             int i = parseInt(uuidOrNameOrIDOrIp);

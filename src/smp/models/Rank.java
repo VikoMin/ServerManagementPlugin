@@ -6,10 +6,10 @@ import mindustry.gen.Player;
 import java.util.ArrayList;
 
 import static arc.util.Strings.canParseInt;
+import static arc.util.Strings.parseInt;
 import static smp.functions.Utilities.canParseLong;
 
 public class Rank {
-    private static Rank rank;
     public int priotity;
     public String rankId;
     public String rankName;
@@ -27,12 +27,12 @@ public class Rank {
     }
     public void changeValue(String key, Object value){
         switch (key) {
-            case "rankId": rankId = (String) value;
-            case "rankName": rankName = (String) value;
-            case "rankPrefix": rankPrefix = (String) value;
-            case "priority": priotity = (int) value;
-            case "adminPerms": adminPerms = (boolean) value;
-            case "consolePerms": consolePerms = (boolean) value;
+            case "rankId": rankId = (String) value; return;
+            case "rankName": rankName = (String) value; return;
+            case "rankPrefix": rankPrefix = (String) value; return;
+            case "priority": if (canParseInt((String) value)) priotity = Integer.parseInt((String) value);; return;
+            case "adminPerms": adminPerms = (boolean) value; return;
+            case "consolePerms": consolePerms = (boolean) value; return;
         }
     }
 }

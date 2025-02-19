@@ -1,13 +1,13 @@
 package smp.discord;
 
 import org.javacord.api.event.message.MessageCreateEvent;
-import smp.commands.discord.DiscordCommand;
+import smp.commands.ds.discord.DiscordCommand;
 
 import java.util.Objects;
 
 import static smp.commands.CommandRegister.discordCommands;
-import static smp.functions.Checks.isConsole;
-import static smp.functions.Checks.isModerator;
+import static smp.discord.Checks.isConsole;
+import static smp.discord.Checks.isModerator;
 
 public class DiscordCommandHandler {
     public static String prefix = "()";

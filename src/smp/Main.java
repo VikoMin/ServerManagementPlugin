@@ -7,9 +7,9 @@ import mindustry.game.EventType;
 import mindustry.mod.*;
 import mindustry.net.Packets;
 import smp.commands.CommandRegister;
-import smp.commands.admin.AdminChatCommand;
-import smp.commands.admin.RevertCommand;
-import smp.commands.basic.*;
+import smp.commands.mindustry.admin.AdminChatCommand;
+import smp.commands.mindustry.admin.RevertCommand;
+import smp.commands.mindustry.basic.*;
 import smp.database.players.Counter;
 
 import java.net.UnknownHostException;
