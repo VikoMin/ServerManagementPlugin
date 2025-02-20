@@ -7,17 +7,17 @@ import org.javacord.api.entity.user.User;
 import smp.models.PlayerData;
 import smp.models.Punishment;
 
-import java.util.Date;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 import static java.lang.Long.parseLong;
 import static smp.Variables.discordURL;
 import static smp.database.players.PlayerFunctions.updateData;
+import static smp.database.punishments.FindPunishment.findPunishmentLastBan;
 import static smp.discord.Bot.messageLogChannel;
 import static smp.discord.embeds.BanEmbed.banEmbed;
 import static smp.functions.FindPlayer.findPlayerByName;
 import static smp.functions.Wrappers.timeToDuration;
+import java.util.List.*;
 
 public class Utilities {
     public static <T> T notNullElse(T value, T value2){
@@ -27,7 +27,8 @@ public class Utilities {
         return parseLong(s) != Long.MIN_VALUE;
     }
     public static void banPlayer(Date date, String reason, PlayerData data, Player moderator){
-        data.changeValue("lastBan", String.valueOf(date.getTime()));
+        Punishment punishment = new Punishment("ban", date.getTime(), reason, moderator.plainName());
+        data.punishments.add(punishment);
         Player plr = findPlayerByName(data.name);
         if (plr != null){
             Call.sendMessage(plr.plainName() + " has been banned for: " + reason);
@@ -50,7 +51,10 @@ public class Utilities {
     }
 
     public static void unbanPlayer(PlayerData data){
-        data.changeValue("lastBan", "0");
+        Punishment punishment = findPunishmentLastBan(data);
+        data.punishments.remove(punishment);
+        punishment.punishmentType = "unbanned";
+        data.punishments.add(punishment);
         updateData(data);
     }
 
@@ -60,7 +64,6 @@ public class Utilities {
             System.out.println(settingInputText);
             String settingValue = inp.next();
             Core.settings.put(settingName, settingValue);
-            inp.close();
         }
     }
 
@@ -70,7 +73,18 @@ public class Utilities {
             System.out.println(settingInputText);
             Long settingValue = inp.nextLong();
             Core.settings.put(settingName, settingValue);
-            inp.close();
         }
+    }
+
+    public static String joinArrayString(String[] array, int startFrom){
+        StringBuilder string = new StringBuilder();
+        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList(array));
+        arrayList.remove(arrayList.size()-1);
+        for (String str : arrayList){
+            if (arrayList.indexOf(str) >= startFrom) {
+                string.append(str).append(" ");
+            }
+        }
+        return string.toString();
     }
 }

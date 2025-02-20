@@ -6,7 +6,6 @@ import smp.menus.Menu;
 import smp.models.PlayerData;
 
 import static mindustry.ui.Menus.registerMenu;
-import static smp.functions.Wrappers.statsWrapper;
 
 public class LoginMenu extends Menu {
     public LoginMenu(PlayerData data, MessageCreateEvent listener){
@@ -18,7 +17,7 @@ public class LoginMenu extends Menu {
                     switch(option){
                         case -1 -> {return;}
                         case 0 -> {
-                            data.changeValue("discordId", String.valueOf(listener.getMessageAuthor().getId()));
+                            data.set("discordId", String.valueOf(listener.getMessageAuthor().getId()));
                             PlayerFunctions.updateData(data);
                             listener.getChannel().sendMessage("Account has been linked to: " + data.id);
                             player.sendMessage("[green]Your account has been linked!");

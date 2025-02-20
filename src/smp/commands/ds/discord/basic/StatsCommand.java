@@ -1,4 +1,4 @@
-package smp.commands.ds.discord.admin;
+package smp.commands.ds.discord.basic;
 
 import org.javacord.api.event.message.MessageCreateEvent;
 import smp.commands.ds.discord.DiscordCommand;
@@ -10,20 +10,18 @@ import java.util.Date;
 
 import static arc.util.Strings.canParseInt;
 import static java.lang.Integer.parseInt;
-import static smp.database.players.PlayerFunctions.updateData;
+import static smp.discord.embeds.StatsEmbed.statsEmbed;
 import static smp.functions.Wrappers.formatBanTime;
 
-public class BanCommand extends DiscordCommand {
-    public BanCommand() {
-        super("ban", " <id/name/uuid> <time> <reason> -> Bans the player.", 3,true, false);
+public class StatsCommand extends DiscordCommand {
+    public StatsCommand() {
+        super("stats", " <id/name/uuid...> - Views the statistic of the player.", 1);
     }
 
     @Override
     public void run(MessageCreateEvent listener) {
         String[] args = this.params;
         PlayerData plr = null;
-        Date time = formatBanTime(args[1]);
-        String reason = args[2];
 
         if (canParseInt(args[0])) {
             plr = FindPlayerData.getPlayerData(parseInt(args[0]));
@@ -32,10 +30,7 @@ public class BanCommand extends DiscordCommand {
         }
 
         if (plr == null) {listener.getChannel().sendMessage("Could not find that player!"); return;}
+        listener.getChannel().sendMessage(statsEmbed(plr));
 
-        if (time == null) {listener.getChannel().sendMessage("Incorrect time!"); return;}
-
-        Utilities.banPlayer(time, reason, plr, listener.getMessageAuthor().asUser().get());
-        listener.getChannel().sendMessage("Banned: " + plr.name);
     }
 }

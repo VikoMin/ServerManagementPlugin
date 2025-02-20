@@ -3,11 +3,13 @@ package smp.discord;
 import org.javacord.api.event.message.MessageCreateEvent;
 import smp.commands.ds.discord.DiscordCommand;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import static smp.commands.CommandRegister.discordCommands;
 import static smp.discord.Checks.isConsole;
 import static smp.discord.Checks.isModerator;
+import static smp.functions.Utilities.joinArrayString;
 
 public class DiscordCommandHandler {
     public static String prefix = "()";
@@ -16,6 +18,7 @@ public class DiscordCommandHandler {
         if (!listener.getMessageContent().isEmpty()) {
             String[] sepArray = listener.getMessageContent().split(" ");
             String[] newArray = sepArray;
+
             String name = sepArray[0];
             if (sepArray.length == 1) {
                 newArray = new String[]{};
@@ -37,6 +40,8 @@ public class DiscordCommandHandler {
                         return;
                     };
                     command.cmdUser = listener.getMessage().getUserAuthor().get();
+                    String argsAfter = joinArrayString(newArray, command.argCount-1);
+                    newArray[command.argCount-1] = argsAfter;
                     command.params = newArray;
                     command.run(listener);
                     return;

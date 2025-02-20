@@ -1,12 +1,9 @@
 package smp.models;
 
-import mindustry.content.Blocks;
 import mindustry.content.Fx;
-import mindustry.gen.Call;
 import mindustry.gen.Player;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static arc.util.Strings.canParseInt;
 import static smp.functions.Utilities.canParseLong;
@@ -34,7 +31,7 @@ public class PlayerData {
         this.uuid = uuid;
         this.id = id;
     }
-    public void changeValue(String key, Object value, Player player){
+    public void set(String key, Object value, Player player){
         switch (key) {
             case "uuid": uuid = (String) value; return;
             case "name": name = (String) value; return;
@@ -50,7 +47,7 @@ public class PlayerData {
         }
     }
 
-    public void changeValue(String key, Object value){
+    public void set(String key, Object value){
         switch (key) {
             case "uuid": uuid = (String) value; return;
             case "name": name = (String) value; return;
@@ -63,5 +60,21 @@ public class PlayerData {
             case "playtime": if (canParseInt((String) value)) id = Integer.parseInt((String) value); return;
             case "customPrefix": customPrefix = (String) value;
         }
+    }
+
+    public Object get(String key){
+        return switch (key) {
+            case "uuid" -> uuid;
+            case "name" -> name;
+            case "rawname" -> rawName;
+            case "rank" -> rank;
+            case "joinMessage" -> joinMessage;
+            case "ip" -> ip;
+            case "punishments" -> punishments;
+            case "discordId" -> discordId;
+            case "playtime" -> playtime;
+            case "customPrefix" -> customPrefix;
+            default -> null;
+        };
     }
 }

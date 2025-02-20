@@ -10,12 +10,11 @@ import java.util.Date;
 
 import static arc.util.Strings.canParseInt;
 import static java.lang.Integer.parseInt;
-import static smp.database.players.PlayerFunctions.updateData;
 import static smp.functions.Wrappers.formatBanTime;
 
-public class BanCommand extends DiscordCommand {
-    public BanCommand() {
-        super("ban", " <id/name/uuid> <time> <reason> -> Bans the player.", 3,true, false);
+public class WarnCommand extends DiscordCommand {
+    public WarnCommand() {
+        super("ban", " <id/name/uuid> <time> <reason> -> Warns the player.", 3,true, false);
     }
 
     @Override
@@ -36,6 +35,6 @@ public class BanCommand extends DiscordCommand {
         if (time == null) {listener.getChannel().sendMessage("Incorrect time!"); return;}
 
         Utilities.banPlayer(time, reason, plr, listener.getMessageAuthor().asUser().get());
-        listener.getChannel().sendMessage("Banned: " + plr.name);
+        listener.getChannel().sendMessage("Warned: " + plr.name);
     }
 }

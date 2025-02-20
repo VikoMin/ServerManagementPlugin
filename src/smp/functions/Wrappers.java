@@ -64,4 +64,9 @@ public class Wrappers {
         int minutes = newDate.getMinutes();
         return days + " days " + hours + " hours and " + minutes + " minutes" ;
     }
+    public static String minutesFormat(long minutes){
+        int days = (int) Math.floor((double) minutes / 1440);
+        int hours = (int) Math.floor((double) (minutes - days* 1440L)/60);
+        return days + " days " + hours + " hours and " + minutes + " minutes" ;
+    }
 }

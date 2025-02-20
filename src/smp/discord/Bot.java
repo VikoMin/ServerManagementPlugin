@@ -10,15 +10,9 @@ import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.intent.Intent;
 import org.javacord.api.event.message.MessageCreateEvent;
 import smp.Variables;
-import smp.commands.ds.discord.admin.AdminAddCommand;
-import smp.commands.ds.discord.admin.AdminRewCommand;
-import smp.commands.ds.discord.admin.BanCommand;
-import smp.commands.ds.discord.admin.UnbanCommand;
+import smp.commands.ds.discord.admin.*;
 import smp.commands.ds.discord.basic.*;
-import smp.commands.ds.discord.console.CreateRankCommand;
-import smp.commands.ds.discord.console.DeleteRankCommand;
-import smp.commands.ds.discord.console.MagicStickCommand;
-import smp.commands.ds.discord.console.SetRankCommand;
+import smp.commands.ds.discord.console.*;
 import smp.models.PlayerData;
 
 import static smp.Variables.*;
@@ -70,6 +64,13 @@ public class Bot {
         ListRanksCommand listRanksCommand= new ListRanksCommand();
         MagicStickCommand magicStickCommand = new MagicStickCommand();
         LoginCommand loginCommand = new LoginCommand();
+        StatsCommand statsCommand = new StatsCommand();
+        ExecCommand execCommand = new ExecCommand();
+        ResetColumnCommand resetColumnCommand = new ResetColumnCommand();
+        PardonCommand pardonCommand = new PardonCommand();
+        DeleteMapCommand deleteMapCommand = new DeleteMapCommand();
+        UploadMapCommand uploadMapCommand = new UploadMapCommand();
+        ListPunishmentsCommand listPunishmentsCommand = new ListPunishmentsCommand();
         registerDiscordCommand(listPlayersCommand,
                 adminAddCommand,
                 adminRewCommand,
@@ -82,7 +83,14 @@ public class Bot {
                 deleteRankCommand,
                 listRanksCommand,
                 magicStickCommand,
-                loginCommand);
+                loginCommand,
+                statsCommand,
+                execCommand,
+                resetColumnCommand,
+                pardonCommand,
+                deleteMapCommand,
+                uploadMapCommand,
+                listPunishmentsCommand);
         Events.on(EventType.PlayerChatEvent.class, event  -> {
             if (event.message.startsWith("/")) {
                 return;

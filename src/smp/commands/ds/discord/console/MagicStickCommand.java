@@ -27,18 +27,18 @@ public class MagicStickCommand extends DiscordCommand {
         switch (args[0]){
             case "players" -> {
                 PlayerData data = getPlayerDataAnyway(args[1]);
-                data.changeValue(args[2], args[3]);
+                data.set(args[2], args[3]);
                 updateData(data);
             }
             case "settings" -> {
                 if (!canParseInt(args[1])) {listener.getChannel().sendMessage("Filter should be integer!"); return;}
                 Setting data = findSetting(Integer.parseInt(args[1]));
-                data.changeValue(args[2], args[3]);
+                data.set(args[2], args[3]);
                 updateSetting(data);
             }
             case "ranks" -> {
                 Rank data = findRank(args[1]);
-                data.changeValue(args[2], args[3]);
+                data.set(args[2], args[3]);
                 updateRank(data);
                 initializeRanks();
             }

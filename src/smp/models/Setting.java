@@ -1,8 +1,6 @@
 package smp.models;
 
 import arc.Core;
-import arc.Settings;
-import mindustry.Vars;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
@@ -18,7 +16,7 @@ public class Setting {
 
     public Setting() throws UnknownHostException {
     }
-    public void changeValue(String key, Object value){
+    public void set(String key, Object value){
         switch (key) {
             case "discordURL": discordURL = (String) value; break;
             case "ip": ip = (String) value; break;
@@ -28,5 +26,17 @@ public class Setting {
             case "type": type = (String) value; break;
             case "discordPrefix": discordPrefix = (String) value;
         }
+    }
+    public Object get(String key){
+        return switch (key) {
+            case "discordURL" -> discordPrefix;
+            case "ip" -> ip;
+            case "port" -> port;
+            case "serverName" -> serverName;
+            case "serverDescription" -> serverDescription;
+            case "type" -> type;
+            case "discordPrefix" -> discordPrefix;
+            default -> null;
+        };
     }
 }

@@ -23,7 +23,7 @@ public class SetRankCommand extends DiscordCommand {
         if (plr == null) {listener.getChannel().sendMessage("This player does not exist!"); return;}
         if (rank == null) {listener.getChannel().sendMessage("This rank does not exist!"); return;}
         if (!rankCheck(listener, plr, rank)) return;
-        plr.changeValue("rank", rank.rankId);
+        plr.set("rank", rank.rankId);
         updateData(plr);
         listener.getChannel().sendMessage("Rank of " + plr.name + " has been changed to " + plr.rank);
     }

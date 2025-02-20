@@ -22,7 +22,7 @@ public class InitializeSettings {
             System.out.println("Looks like you don't have your prefix set up! Please, type the prefix for discord bot" +
                     "(ex: sbx. Each command will have to start with sbx):\n");
 
-            setting.changeValue("discordPrefix", scanner.next());
+            setting.set("discordPrefix", scanner.next());
         }
 
         if (setting.discordURL == "none"){
@@ -31,13 +31,13 @@ public class InitializeSettings {
             System.out.println("Looks like you don't have your discord server URL set up! Please, type the discord server URL for people to join!" +
                     ":\n");
 
-            setting.changeValue("discordURL", scanner.next());
+            setting.set("discordURL", scanner.next());
         }
 
         DiscordCommandHandler.prefix = setting.discordPrefix;
         Variables.discordURL = setting.discordURL;
-        setting.changeValue("serverName", Core.settings.getString("servername"));
-        setting.changeValue("serverDescription", Core.settings.getString("desc"));
+        setting.set("serverName", Core.settings.getString("servername"));
+        setting.set("serverDescription", Core.settings.getString("desc"));
         if (findSetting(setting.port) == null){
             settingCollection.insertOne(setting);
         }

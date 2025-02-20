@@ -1,13 +1,7 @@
 package smp.models;
 
-import mindustry.content.Fx;
-import mindustry.gen.Player;
-
-import java.util.ArrayList;
-
 import static arc.util.Strings.canParseInt;
 import static arc.util.Strings.parseInt;
-import static smp.functions.Utilities.canParseLong;
 
 public class Rank {
     public int priotity;
@@ -25,7 +19,7 @@ public class Rank {
         this.rankPrefix = rankPrefix;
         this.priotity = priority;
     }
-    public void changeValue(String key, Object value){
+    public void set(String key, Object value){
         switch (key) {
             case "rankId": rankId = (String) value; return;
             case "rankName": rankName = (String) value; return;
@@ -34,5 +28,16 @@ public class Rank {
             case "adminPerms": adminPerms = (boolean) value; return;
             case "consolePerms": consolePerms = (boolean) value; return;
         }
+    }
+    public Object get(String key){
+        return switch (key) {
+            case "rankId" -> rankId;
+            case "rankName" -> rankName;
+            case "rankPrefix" -> rankPrefix;
+            case "priority" -> priotity;
+            case "adminPerms" -> adminPerms;
+            case "consolePerms" -> consolePerms;
+            default -> null;
+        };
     }
 }
