@@ -34,7 +34,7 @@ public class WarnCommand extends DiscordCommand {
 
         if (time == null) {listener.getChannel().sendMessage("Incorrect time!"); return;}
 
-        Utilities.banPlayer(time, reason, plr, listener.getMessageAuthor().asUser().get());
+        Utilities.warnPlayer(time, reason, plr, listener.getMessageAuthor().asUser().get());
         listener.getChannel().sendMessage("Warned: " + plr.name);
     }
 }

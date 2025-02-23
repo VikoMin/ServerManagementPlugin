@@ -23,6 +23,11 @@ public class Checks {
         Date date = new Date();
         if (lastBan.punishmentDuration > date.getTime()) {
             String timeUntilUnban = timeToDuration(lastBan.punishmentDuration);
+            player.kick("[red]You have been banned!\n\n" +
+                    "[white]Reason: " + lastBan.punishmentReason + "\n\n"
+                    +"[white]Moderator: " + lastBan.punishmentModerator + "\n\n"
+                    +"[white]Duration: " + timeUntilUnban + " until unban" +
+                    "\n\nIf you think this is a mistake, make sure to appeal ban in our discord: " + discordURL, 0);
         }
     }
     public static void kickIfBanned(Player player){

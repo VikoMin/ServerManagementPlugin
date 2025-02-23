@@ -1,5 +1,7 @@
 package smp.commands.ds.discord.admin;
 
+import org.javacord.api.entity.message.embed.Embed;
+import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.message.MessageCreateEvent;
 import smp.commands.ds.discord.DiscordCommand;
 import smp.database.players.FindPlayerData;
@@ -7,10 +9,13 @@ import smp.functions.Utilities;
 import smp.models.PlayerData;
 import smp.models.Punishment;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static arc.util.Strings.canParseInt;
 import static java.lang.Integer.parseInt;
+import static smp.discord.embeds.PunishmentEmbed.punishmentEmbed;
 import static smp.functions.Wrappers.formatBanTime;
 
 public class ListPunishmentsCommand extends DiscordCommand {
@@ -22,20 +27,16 @@ public class ListPunishmentsCommand extends DiscordCommand {
     public void run(MessageCreateEvent listener) {
         String[] args = this.params;
         PlayerData plr = null;
-
+        System.out.println(args[0]);
         if (canParseInt(args[0])) {
             plr = FindPlayerData.getPlayerData(parseInt(args[0]));
         } else {
             plr = FindPlayerData.getPlayerData(args[0]);
         }
-        StringBuilder builder = new StringBuilder();
         for (Punishment punishment : plr.punishments){
-            builder.append("Punishment type: ").append(punishment.punishmentType).append("\n");
-            builder.append("Punishment reason: ").append(punishment.punishmentReason).append("\n");
-            builder.append("Punishment expire date: ").append("<t:").append(punishment.punishmentDuration).append(">").append("\n");
-            builder.append("Punishment moderator: ").append(punishment.punishmentModerator).append("\n");
-            builder.append("\n\n");
+            System.out.println("yaya");
+            listener.getChannel().sendMessage(punishmentEmbed(punishment));
         }
-        listener.getChannel().sendMessage(builder.toString());
+
     }
 }

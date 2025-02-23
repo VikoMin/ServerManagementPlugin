@@ -58,6 +58,12 @@ public class Utilities {
         updateData(data);
     }
 
+    public static void warnPlayer(Date date, String reason, PlayerData data, User moderator){
+        Punishment punishment = new Punishment("warn", date.getTime(), reason, moderator.getName());
+        data.punishments.add(punishment);
+        updateData(data);
+    }
+
     public static void makeCoreSettingString(String settingInputText, String settingName){
         if (Objects.equals(Core.settings.getString(settingName), "none") || Core.settings.getString(settingName) == null) {
             Scanner inp = new Scanner(System.in);
@@ -82,7 +88,11 @@ public class Utilities {
         arrayList.remove(arrayList.size()-1);
         for (String str : arrayList){
             if (arrayList.indexOf(str) >= startFrom) {
-                string.append(str).append(" ");
+                if (arrayList.indexOf(str) != arrayList.size()-1) {
+                    string.append(str).append(" ");
+                } else {
+                    string.append(str);
+                }
             }
         }
         return string.toString();

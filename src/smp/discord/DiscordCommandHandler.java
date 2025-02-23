@@ -40,8 +40,10 @@ public class DiscordCommandHandler {
                         return;
                     };
                     command.cmdUser = listener.getMessage().getUserAuthor().get();
-                    String argsAfter = joinArrayString(newArray, command.argCount-1);
-                    newArray[command.argCount-1] = argsAfter;
+                    if (sepArray.length != 1) {
+                        String argsAfter = joinArrayString(newArray, command.argCount - 1);
+                        newArray[command.argCount - 1] = argsAfter;
+                    }
                     command.params = newArray;
                     command.run(listener);
                     return;

@@ -2,6 +2,7 @@ package smp;
 
 import arc.Events;
 import arc.util.CommandHandler;
+import arc.util.Timer;
 import mindustry.Vars;
 import mindustry.game.EventType;
 import mindustry.mod.*;
@@ -50,12 +51,6 @@ public class Main extends Plugin{
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }
-        Events.on(EventType.PlayerJoin.class, plr -> {
-            joinEvent(plr.player);
-        });
-        Events.on(EventType.PlayerLeave.class, playerLeave -> {
-            leaveEvent(playerLeave.player);
-        });
         Vars.net.handleServer(Packets.Connect.class, (con, connect) -> {
             Events.fire(new EventType.ConnectionEvent(con));
             MongoDbPlayerIpCheck(con);
@@ -64,6 +59,12 @@ public class Main extends Plugin{
                 con.kick(Packets.KickReason.banned);
             }
             kickIfBanned(con);
+        });
+        Events.on(EventType.PlayerJoin.class, plr -> {
+            joinEvent(plr.player);
+        });
+        Events.on(EventType.PlayerLeave.class, playerLeave -> {
+            leaveEvent(playerLeave.player);
         });
     }
 
@@ -87,7 +88,6 @@ public class Main extends Plugin{
         StatsCommand statsCommands = new StatsCommand();
         ServerHopCommand serverHopCommand = new ServerHopCommand();
         register = new CommandRegister(handler);
-        register.updateCommands();
         register.registerCommand(testCommand);
         register.registerCommand(helpCommand);
         register.registerCommand(whisperCommand);
@@ -99,6 +99,9 @@ public class Main extends Plugin{
                 statsCommands,
                 serverHopCommand);
 
+        Timer.schedule(() -> {
+            register.updateCommands();
+        }, 5);
         /* admin commands */
 
         AdminChatCommand adminChatCommand = new AdminChatCommand();

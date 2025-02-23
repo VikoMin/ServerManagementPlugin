@@ -12,7 +12,7 @@ public class BanEmbed {
                 .setColor(Color.RED)
                 .addField("**ID**", String.valueOf(data.id))
                 .addField("**Name**", data.name)
-                .addField("**Reason**", reason)
+                .addField("**Reason**", reason, true)
                 .addField("**Expires**", "<t:" + banTime / 1000 + ":D>")
                 .addField("**Moderator**", moderator);
     }

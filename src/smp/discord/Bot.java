@@ -71,6 +71,8 @@ public class Bot {
         DeleteMapCommand deleteMapCommand = new DeleteMapCommand();
         UploadMapCommand uploadMapCommand = new UploadMapCommand();
         ListPunishmentsCommand listPunishmentsCommand = new ListPunishmentsCommand();
+        WarnCommand warnCommand = new WarnCommand();
+        ConHelpCommand conHelpCommand= new ConHelpCommand();
         registerDiscordCommand(listPlayersCommand,
                 adminAddCommand,
                 adminRewCommand,
@@ -90,7 +92,9 @@ public class Bot {
                 pardonCommand,
                 deleteMapCommand,
                 uploadMapCommand,
-                listPunishmentsCommand);
+                listPunishmentsCommand,
+                warnCommand,
+                conHelpCommand);
         Events.on(EventType.PlayerChatEvent.class, event  -> {
             if (event.message.startsWith("/")) {
                 return;
