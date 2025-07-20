@@ -7,7 +7,6 @@ import smp.models.Rank;
 import static arc.util.Strings.canParseInt;
 import static java.lang.Integer.parseInt;
 import static smp.database.DatabaseSystem.rankCollection;
-import static smp.database.players.PlayerFunctions.updateData;
 import static smp.other.InitializeRanks.ranks;
 
 public class CreateRankCommand extends DiscordCommand {

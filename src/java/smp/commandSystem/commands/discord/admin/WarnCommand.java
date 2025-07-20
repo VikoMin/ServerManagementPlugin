@@ -1,15 +1,18 @@
 package smp.commandSystem.commands.discord.admin;
 
+import org.javacord.api.entity.user.User;
 import org.javacord.api.event.message.MessageCreateEvent;
 import smp.commandSystem.discord.DiscordCommand;
 import smp.database.players.FindPlayerData;
-import smp.functions.Utilities;
 import smp.models.PlayerData;
+import smp.models.Punishment;
 
 import java.util.Date;
 
 import static arc.util.Strings.canParseInt;
 import static java.lang.Integer.parseInt;
+import static smp.database.DatabaseSystem.updateDatabaseDocument;
+import static smp.database.DatabaseSystem.playerCollection;
 import static smp.functions.Wrappers.formatBanTime;
 
 public class WarnCommand extends DiscordCommand {
@@ -34,7 +37,13 @@ public class WarnCommand extends DiscordCommand {
 
         if (time == null) {listener.getChannel().sendMessage("Incorrect time!"); return;}
 
-        Utilities.warnPlayer(time, reason, plr, listener.getMessageAuthor().asUser().get());
+        warnPlayer(time, reason, plr, listener.getMessageAuthor().asUser().get());
         listener.getChannel().sendMessage("Warned: " + plr.name);
+    }
+
+    public static void warnPlayer(Date date, String reason, PlayerData data, User moderator){
+        Punishment punishment = new Punishment("warn", date.getTime(), reason, moderator.getName());
+        data.punishments.add(punishment);
+        updateDatabaseDocument(data, playerCollection, "_id", data.id);
     }
 }

@@ -6,9 +6,9 @@ import smp.database.players.FindPlayerData;
 import smp.models.PlayerData;
 import smp.models.Rank;
 
-import static smp.database.players.PlayerFunctions.updateData;
-import static smp.database.ranks.FindRank.findRank;
+import static smp.database.DatabaseSystem.*;
 import static smp.discord.DiscordChecks.hasRank;
+import static smp.functions.Utilities.createHashMap;
 
 public class SetRankCommand extends DiscordCommand {
     public SetRankCommand() {
@@ -18,13 +18,13 @@ public class SetRankCommand extends DiscordCommand {
     @Override
     public void run(MessageCreateEvent listener) {
         String[] args = this.params;
-        PlayerData plr = FindPlayerData.getPlayerDataAnyway(args[1]);
-        Rank rank = findRank(args[0]);
-        if (plr == null) {listener.getChannel().sendMessage("This player does not exist!"); return;}
+        PlayerData data = FindPlayerData.getPlayerDataAnyway(args[1]);
+        Rank rank = findDatabaseDocument(rankCollection, createHashMap("id", args[0]));
+        if (data == null) {listener.getChannel().sendMessage("This player does not exist!"); return;}
         if (rank == null) {listener.getChannel().sendMessage("This rank does not exist!"); return;}
-        if (!hasRank(listener, plr, rank)) return;
-        plr.set("rank", rank.rankId);
-        updateData(plr);
-        listener.getChannel().sendMessage("Rank of " + plr.name + " has been changed to " + plr.rank);
+        if (!hasRank(listener, data, rank)) return;
+        data.set("rank", rank.id);
+        updateDatabaseDocument(data, playerCollection, "_id", data.id);
+        listener.getChannel().sendMessage("Rank of " + data.name + " has been changed to " + data.rank);
     }
 }

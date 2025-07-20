@@ -1,6 +1,7 @@
 package smp.commandSystem.commands.mindustry.basic;
 
 import arc.struct.Seq;
+import mindustry.Vars;
 import mindustry.gen.Player;
 import mindustry.maps.Map;
 import smp.commandSystem.mindustry.MindustryCommand;
@@ -8,7 +9,6 @@ import smp.commandSystem.mindustry.MindustryCommand;
 import java.util.Arrays;
 
 import static arc.util.Strings.canParseInt;
-import static smp.functions.Utilities.getMaps;
 
 public class MapsCommand extends MindustryCommand<Player> {
     public MapsCommand() {
@@ -38,5 +38,13 @@ public class MapsCommand extends MindustryCommand<Player> {
             return;
         }
         player.sendMessage(String.valueOf(list));
+    }
+
+    public static Seq<Map> getMaps(){
+        Seq<Map> maps = new Seq<>();
+        for(Map map : Vars.maps.customMaps()){
+            maps.add(map);
+        }
+        return maps;
     }
 }

@@ -1,4 +1,4 @@
-package smp;
+package smp.vars;
 
 import arc.struct.ObjectMap;
 import arc.struct.Seq;
@@ -9,7 +9,6 @@ import mindustry.gen.Groups;
 import mindustry.gen.Player;
 import mindustry.net.Administration;
 import smp.commandSystem.commands.mindustry.basic.VotekickCommand;
-import smp.models.Setting;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -50,8 +49,31 @@ public class Variables {
 
     public static String discordURL;
 
+    public static String discordPrefix;
+
     public static String discordToken;
 
-    public static Setting currentSetting;
+    public static boolean discordEnabled = true;
+
+    public static boolean allDiscordCommandsEnabled = true;
+
+    /** GLOBAL */
+
+    public static String loc = "en";
+    public static boolean playerBasedLoc = true;
+    public static String mongoDbIP = "mongodb://localhost:27017/";
+    public static String type = "default";
+
+    /** MINDUSTRY */
+
+    public static boolean ranksEnabled = true;
+    public static boolean allCommandsEnabled = true;
+    public static boolean griefingWarningsEnabled = true;
+    public static boolean betterBansEnabled = true;
+    public static boolean timeCounterEnabled = true;
+
+    public static boolean welcomeMenuEnabled = true;
+    public static String welcomeMenuText;
+    public static String welcomeMenuTitle;
 
 }

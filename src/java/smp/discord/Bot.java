@@ -9,13 +9,13 @@ import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.channel.TextChannel;
 import org.javacord.api.entity.intent.Intent;
 import org.javacord.api.event.message.MessageCreateEvent;
-import smp.Variables;
+import smp.vars.Variables;
 import smp.commandSystem.discord.DiscordCommand;
 import smp.models.PlayerData;
 
 import java.util.List;
 
-import static smp.Variables.*;
+import static smp.vars.Variables.*;
 import static smp.commandSystem.CommandRegister.getCommandsFromPackage;
 import static smp.commandSystem.CommandRegister.registerDiscordCommands;
 import static smp.database.players.FindPlayerData.getPlayerData;
@@ -26,22 +26,6 @@ public class Bot {
     public static TextChannel messageLogChannel;
     public static TextChannel banLogChannel;
     public static void initBot(){
-        makeCoreSettingString("Looks like you don't have discord token registered: ",
-                "discordToken");
-        makeCoreSettingLong("Looks like you don't have message log channel ID registered: ",
-                "messageLogChannelID");
-        makeCoreSettingLong("Looks like you don't have ban log channel registered: ",
-                "messageBanLogChannelID");
-        makeCoreSettingLong("Looks like you don't have mindustry console role ID registered: ",
-                "mindustryConsoleID");
-        makeCoreSettingLong("Looks like you don't have mindustry moderator role ID registered: ",
-                "mindustryModeratorID");
-        discordToken = Core.settings.getString("discordToken");
-        messageLogChannelID = Core.settings.getLong("messageLogChannelID");;
-        messageBanLogChannelID = Core.settings.getLong("messageBanLogChannelID");;
-        mindustryConsoleID = Core.settings.getLong("mindustryConsoleID");;
-        mindustryModeratorID = Core.settings.getLong("mindustryModeratorID");;
-
 
         DiscordApi api = new DiscordApiBuilder()
                 .setToken(discordToken)

@@ -3,9 +3,9 @@ package smp.commandSystem.commands.mindustry.basic;
 import mindustry.gen.Groups;
 import mindustry.gen.Player;
 import smp.commandSystem.mindustry.MindustryCommand;
-import static smp.Variables.admins;
+import static smp.vars.Variables.admins;
 
-import static smp.Variables.chatFormatter;
+import static smp.vars.Variables.chatFormatter;
 
 public class TeamChatCommand extends MindustryCommand<Player> {
 

@@ -5,7 +5,7 @@ import mindustry.gen.Call;
 import mindustry.gen.Player;
 import smp.commandSystem.mindustry.MindustryCommand;
 
-import static smp.Variables.*;
+import static smp.vars.Variables.*;
 
 public class VoteCommand extends MindustryCommand<Player> {
 

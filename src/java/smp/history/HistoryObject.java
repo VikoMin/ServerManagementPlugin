@@ -13,12 +13,13 @@ public class HistoryObject {
     public final String uuid;
     public final String rawName;
     public final String action;
+    public boolean parentObject;
     public int rotation;
     public Team team;
     public final Date time;
     public Object conf;
 
-    public HistoryObject(Tile tile, Block actionBlock, String rawName, String uuid, String action, int rotation, Team team, Date time, Object config) {
+    public HistoryObject(Tile tile, Block actionBlock, String rawName, String uuid, String action, int rotation, Team team, Date time, Object config, boolean parentObject) {
         this.tile = tile;
         this.actionBlock = actionBlock;
         this.rawName = rawName;
@@ -28,8 +29,9 @@ public class HistoryObject {
         this.team = team;
         this.time = time;
         this.conf = config;
+        this.parentObject = parentObject;
     }
-    public HistoryObject(Tile tile, Block actionBlock, String rawName, String uuid, String action, Date time) {
+    public HistoryObject(Tile tile, Block actionBlock, String rawName, String uuid, String action, Date time, boolean parentObject) {
         this.tile = tile;
         this.actionBlock = actionBlock;
         this.rawName = rawName;
@@ -37,7 +39,7 @@ public class HistoryObject {
         this.action = action;
         this.time = time;
     }
-    public HistoryObject(Tile tile, Block actionBlock, String rawName, String uuid, String action, Date time, Object config) {
+    public HistoryObject(Tile tile, Block actionBlock, String rawName, String uuid, String action, Date time, Object config, boolean parentObject) {
         this.tile = tile;
         this.actionBlock = actionBlock;
         this.rawName = rawName;

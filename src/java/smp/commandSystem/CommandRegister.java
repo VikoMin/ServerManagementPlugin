@@ -10,13 +10,15 @@ import smp.commandSystem.mindustry.MindustryCommand;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static arc.util.Log.log;
 import static smp.functions.Utilities.notNullElse;
+import static smp.system.config.ConfigSystem.*;
 import static smp.system.reflect.ReflectSystem.exportClasses;
+import static smp.vars.Variables.allCommandsEnabled;
+import static smp.vars.Variables.allDiscordCommandsEnabled;
 
 public class CommandRegister<T extends MindustryCommand<Player>> {
 
@@ -30,7 +32,17 @@ public class CommandRegister<T extends MindustryCommand<Player>> {
     }
 
     public final void registerCommands(List<T> commands) {
+        Set<String> whitelistedCommands = new HashSet<>();
+        if (!allCommandsEnabled){
+            whitelistedCommands = booleans.keySet().stream().filter(k -> k.contains("mindustry.commands.command-whitelist.")).collect(Collectors.toSet());
+            System.out.println(whitelistedCommands);
+        }
         for (var command: commands) {
+            if (!whitelistedCommands.isEmpty() && !whitelistedCommands.contains("mindustry.commands.command-whitelist." + command.name)){
+                Log.warn("command has not been registered: " + command.name);
+                continue;
+            }
+
             if (handler.getCommandList().contains(t -> t.text.equalsIgnoreCase(command.name))) handler.removeCommand(command.name);
 
             StringBuilder builder = new StringBuilder();
@@ -54,6 +66,10 @@ public class CommandRegister<T extends MindustryCommand<Player>> {
 
     public static void registerDiscordCommands(List<DiscordCommand> commands) {
         for (var command : commands) {
+            if (!getConfigField("discord.commands.command-whitelist." + command.name, booleans) && !allDiscordCommandsEnabled) {
+                Log.warn("Discord command has not been registered: " + command.name);
+                return;
+            }
             discordCommands.add(command);
         }
     }

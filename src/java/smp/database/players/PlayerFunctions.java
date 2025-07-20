@@ -8,13 +8,14 @@ import smp.models.PlayerData;
 import java.util.Optional;
 
 import static com.mongodb.client.model.Filters.eq;
+import static smp.database.DatabaseSystem.getOrder;
 import static smp.database.DatabaseSystem.playerCollection;
 
 
 public class PlayerFunctions {
     public static PlayerData findPlayerDataOrCreate(Player eventPlayer){
         return Optional.ofNullable(playerCollection.find(eq("uuid", eventPlayer.uuid())).first()).orElse(
-                new PlayerData(eventPlayer.uuid(), getNextID())
+                new PlayerData(eventPlayer.uuid(), getOrder(playerCollection, "_id", "id"))
         );
     }
 
@@ -24,17 +25,5 @@ public class PlayerFunctions {
         data.ip = plr.con.address;
         data.uuid = plr.uuid();
         playerCollection.replaceOne(eq("_id", data.id), data, new ReplaceOptions().upsert(true));
-    }
-    public static void updateData(PlayerData oldData, PlayerData newData){
-        playerCollection.replaceOne(eq("_id", oldData.id), newData, new ReplaceOptions().upsert(true));
-    }
-    public static void updateData(PlayerData data){
-        playerCollection.replaceOne(eq("_id", data.id), data, new ReplaceOptions().upsert(true));
-    }
-
-    public static int getNextID(){
-        PlayerData data = playerCollection.find().sort(new BasicDBObject("_id", -1)).first();
-        if (data == null) return 0;
-        return data.id + 1;
     }
 }

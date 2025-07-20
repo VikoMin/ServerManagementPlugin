@@ -11,6 +11,7 @@ import static smp.database.players.PlayerChecks.DisplayPlayerRank;
 import static smp.database.players.PlayerFunctions.fillData;
 import static smp.database.players.PlayerFunctions.findPlayerDataOrCreate;
 import static smp.functions.Checks.kickIfBanned;
+import static smp.vars.Variables.welcomeMenuEnabled;
 
 public class PlayerJoinEvent {
     public static WelcomeMenu welcomeMenu = new WelcomeMenu();
@@ -23,6 +24,8 @@ public class PlayerJoinEvent {
         DisplayPlayerRank(plr.uuid());
         Call.sendMessage(Strings.format(joinMessage + " [grey][" + data.id + "]", plr.name()));
         Log.info(plr.plainName() + " joined! " + "[" + data.id + "]");
-        welcomeMenu.run(plr.con());
+        if (welcomeMenuEnabled) {
+            welcomeMenu.run(plr.con());
+        }
     }
 }

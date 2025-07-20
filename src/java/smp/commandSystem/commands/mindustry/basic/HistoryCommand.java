@@ -13,11 +13,11 @@ public class HistoryCommand extends MindustryCommand<Player> {
 
     @Override
     public void run(String[] args, Player plr) {
-        if (!historyPlayers.contains(plr.uuid())){
-            historyPlayers.add(plr.uuid());
+        if (!historyPlayers.contains(plr)){
+            historyPlayers.add(plr);
             plr.sendMessage("[green]History enabled!");
         } else {
-            historyPlayers.remove(plr.uuid());
+            historyPlayers.remove(plr);
             plr.sendMessage("[red]History disabled!");
             Call.hideHudText(plr.con());
         }

@@ -2,22 +2,23 @@ package smp.functions;
 
 import smp.models.PlayerData;
 import smp.models.Rank;
-import smp.other.InitializeRanks;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static arc.util.Strings.canParseInt;
 import static arc.util.Strings.parseInt;
-import static smp.database.ranks.FindRank.findRank;
+import static smp.database.DatabaseSystem.findDatabaseDocument;
+import static smp.database.DatabaseSystem.rankCollection;
+import static smp.functions.Utilities.createHashMap;
 
 public class Wrappers {
     public static String statsWrapper(PlayerData data){
-        Rank rank = findRank(data.rank);
+        Rank rank = findDatabaseDocument(rankCollection, createHashMap("id", data.rank));;
        StringBuilder out = new StringBuilder();
        out.append("[orange]Player name: ").append(data.name).append("\n");
        if (rank != null) {
-           out.append("[orange]Rank: ").append(rank.rankName).append("\n");
+           out.append("[orange]Rank: ").append(rank.name).append("\n");
        } else {
            out.append("[orange]Rank: ").append("None").append("\n");
        }

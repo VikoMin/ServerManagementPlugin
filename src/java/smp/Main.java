@@ -10,8 +10,8 @@ import mindustry.mod.*;
 import mindustry.net.Packets;
 import smp.commandSystem.CommandRegister;
 import smp.commandSystem.mindustry.MindustryCommand;
+import smp.system.config.ConfigSystem;
 
-import java.net.UnknownHostException;
 import java.util.List;
 
 import static mindustry.Vars.netServer;
@@ -28,9 +28,11 @@ import static smp.events.SendMessageEvent.rtvEvent;
 import static smp.functions.Checks.kickIfBanned;
 import static smp.history.History.loadHistory;
 import static smp.history.History.loadRevert;
-import static smp.other.BanMenu.loadBanMenu;
+import static smp.other.BanSystem.loadBanMenu;
 import static smp.other.InitializeRanks.initializeRanks;
-import static smp.other.InitializeSettings.initializeSettings;
+import static smp.system.config.ConfigSystem.registerConfig;
+import static smp.system.config.ConfigSystem.updateVariables;
+import static smp.vars.Variables.*;
 
 public class Main extends Plugin{
     public static CommandRegister<MindustryCommand<Player>> register;
@@ -38,18 +40,25 @@ public class Main extends Plugin{
     //called when game initializes
     @Override
     public void init() {
+        registerConfig(Vars.dataDirectory.absolutePath(),  "config.json");
+        updateVariables();
         initDatabase();
         loadHistory();
         loadRevert();
-        loadBanMenu();
-        initBot();
-        initializeNodeGriefingWarnings();
-        initializeRanks();
-        initializeCounter();
-        try {
-            initializeSettings();
-        } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
+        if (betterBansEnabled) {
+            loadBanMenu();
+        }
+        if (discordEnabled) {
+            initBot();
+        }
+        if (griefingWarningsEnabled) {
+            initializeNodeGriefingWarnings();
+        }
+        if (ranksEnabled) {
+            initializeRanks();
+        }
+        if (timeCounterEnabled) {
+            initializeCounter();
         }
         Vars.net.handleServer(Packets.Connect.class, (con, connect) -> {
             Events.fire(new EventType.ConnectionEvent(con));
@@ -85,7 +94,6 @@ public class Main extends Plugin{
     public void registerClientCommands(CommandHandler handler){
 
         register = new CommandRegister<>(handler);
-
         register.registerCommands((List<MindustryCommand<Player>>) getCommandsFromPackage("smp.commandSystem.commands.mindustry"));
         Timer.schedule(() -> {
             register.updateCommands();

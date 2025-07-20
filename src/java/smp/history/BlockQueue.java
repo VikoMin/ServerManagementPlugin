@@ -11,14 +11,16 @@ public class BlockQueue {
     final Block block;
     final Team team;
     final int rotat;
+    final boolean hard;
     Object configurations;
 
-    public BlockQueue(int x, int y, Block block, Team team, int rotat, Object config) {
+    public BlockQueue(int x, int y, Block block, Team team, int rotat, boolean hard, Object config) {
         this.x = x;
         this.y = y;
         this.block = block;
         this.team = team;
         this.rotat = rotat;
+        this.hard = hard;
         this.configurations = config;
     }
 }

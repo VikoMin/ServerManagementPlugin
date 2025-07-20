@@ -3,7 +3,7 @@ package smp.events;
 import mindustry.gen.Call;
 import mindustry.gen.Player;
 
-import static smp.Variables.*;
+import static smp.vars.Variables.*;
 
 public class SendMessageEvent {
     public static void rtvEvent(String message, Player player){

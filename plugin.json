@@ -1,7 +1,7 @@
 {
-  "name": "ExamplePlugin",
-  "author": "Anuke",
+  "name": "SMP",
+  "author": "NazrinNya",
   "main": "smp.Main",
-  "description": "A plugin to demonstrate some basic features.",
-  "version": 1.0
+  "description": "A highly modular plugin that can be used either for single command or a whole system",
+  "version": 2.1
 }

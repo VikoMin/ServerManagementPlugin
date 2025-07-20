@@ -9,10 +9,14 @@ import smp.models.Rank;
 
 import java.util.List;
 
-import static smp.Variables.mindustryConsoleID;
-import static smp.Variables.mindustryModeratorID;
+import static smp.functions.Utilities.createHashMap;
+import static smp.system.config.ConfigSystem.booleans;
+import static smp.system.config.ConfigSystem.getConfigField;
+import static smp.vars.Variables.mindustryConsoleID;
+import static smp.vars.Variables.mindustryModeratorID;
+import static smp.database.DatabaseSystem.findDatabaseDocument;
+import static smp.database.DatabaseSystem.rankCollection;
 import static smp.database.players.FindPlayerData.getPlayerDataByDiscordID;
-import static smp.database.ranks.FindRank.findRank;
 
 public class DiscordChecks {
     public static boolean isModerator(MessageCreateEvent listener){
@@ -38,12 +42,20 @@ public class DiscordChecks {
         }
     }
     public static boolean hasRank(MessageCreateEvent listener, PlayerData receiver, Rank rank){
+        if (!getConfigField("mindustry.ranks.secure-ranks", booleans)) return true;
+
         PlayerData sender = getPlayerDataByDiscordID(listener.getMessageAuthor().getId());
         System.out.println(listener.getMessageAuthor().getId());
         if (sender == null) { listener.getChannel().sendMessage("Your account is not linked!"); return false;}
-        if (findRank(sender.rank).priotity > findRank(receiver.rank).priotity)
-        { listener.getChannel().sendMessage("You can't change rank of person that ranked higher than yoou!"); return false;}
-        if (findRank(sender.rank).priotity > rank.priotity)
+
+        Rank senderRank = findDatabaseDocument(rankCollection, createHashMap("id", sender.rank));
+        Rank receiverRank = findDatabaseDocument(rankCollection, createHashMap("id", receiver.rank));
+
+        if (senderRank == null || receiverRank == null) return false;
+
+        if (senderRank.priotity > receiverRank.priotity)
+        { listener.getChannel().sendMessage("You can't change rank of person that ranked higher than you!"); return false;}
+        if (senderRank.priotity > rank.priotity)
         { listener.getChannel().sendMessage("You can't change rank of that higher than your own!"); return false;}
         return true;
     }

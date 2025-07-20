@@ -1,6 +1,9 @@
 package smp.system.reflect;
 
+import arc.util.Log;
+
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.JarFile;
@@ -28,5 +31,16 @@ public class ReflectSystem {
         }
 
         return classes;
+    }
+
+    public static <T> Object getFieldParam(String name, T object){
+        try {
+            Field field = object.getClass().getField(name);
+            field.setAccessible(true);
+            return field.get(object);
+        } catch (IllegalAccessException | NoSuchFieldException e) {
+            Log.err("Couldn't get field!");
+        }
+        return null;
     }
 }

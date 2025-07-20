@@ -1,21 +1,32 @@
 package smp.other;
 
-import arc.Core;
 import arc.Events;
 import arc.util.Log;
 import mindustry.game.EventType.AdminRequestEvent;
 import mindustry.game.Team;
 import mindustry.gen.AdminRequestCallPacket;
 import mindustry.gen.Call;
+import mindustry.gen.Player;
 import mindustry.net.Administration.TraceInfo;
 import mindustry.net.Packets.KickReason;
 import smp.menus.TextInputs.ReasonBanTextInput;
+import smp.models.PlayerData;
+import smp.models.Punishment;
+
+import java.util.Date;
 
 import static mindustry.Vars.logic;
 import static mindustry.Vars.net;
+import static smp.vars.Variables.discordURL;
+import static smp.database.DatabaseSystem.updateDatabaseDocument;
+import static smp.database.DatabaseSystem.playerCollection;
 import static smp.database.players.FindPlayerData.getPlayerData;
+import static smp.discord.Bot.messageLogChannel;
+import static smp.discord.embedSystem.embeds.BanEmbed.banEmbed;
+import static smp.functions.FindPlayer.findPlayerByName;
+import static smp.functions.Wrappers.timeToDuration;
 
-public class BanMenu {
+public class BanSystem {
 
     public static void loadBanMenu() {
         net.handleServer(AdminRequestCallPacket.class, (con, packet) -> {
@@ -51,6 +62,7 @@ public class BanMenu {
                     Call.traceInfo(player.con, other, new TraceInfo(
                             other.ip(),
                             other.uuid(),
+                            other.locale,
                             other.con.modclient,
                             other.con.mobile,
                             other.getInfo().timesJoined,
@@ -68,5 +80,17 @@ public class BanMenu {
                 }
             }
         });
+    }
+
+    public static void banPlayer(Date date, String reason, PlayerData data, Player moderator){
+        Punishment punishment = new Punishment("ban", date.getTime(), reason, moderator.plainName());
+        data.punishments.add(punishment);
+        Player plr = findPlayerByName(data.name);
+        if (plr != null){
+            Call.sendMessage(plr.plainName() + " has been banned for: " + reason);
+            plr.con.kick("[red]You have been banned!\n\n" + "[white]Reason: " + reason +"\nDuration: " + timeToDuration(date.getTime()) + " until unban\nIf you think this is a mistake, make sure to appeal ban in our discord: " + discordURL, 0);
+        }
+        updateDatabaseDocument(data, playerCollection, "_id", data.id);
+        messageLogChannel.sendMessage(banEmbed(data, reason, date.getTime(), moderator.plainName()));
     }
 }

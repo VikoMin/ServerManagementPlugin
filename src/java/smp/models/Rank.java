@@ -5,38 +5,41 @@ import static arc.util.Strings.parseInt;
 
 public class Rank {
     public int priotity;
-    public String rankId;
-    public String rankName;
-    public String rankPrefix;
-    public boolean adminPerms = false;
-    public boolean consolePerms = false;
+    public String id;
+    public String name;
+    public String prefix;
+    public boolean admin = false;
+    public boolean console = false;
 
     public Rank(){
     }
-    public Rank(String rankId, String rankName, String rankPrefix, int priority){
-        this.rankId = rankId;
-        this.rankName = rankName;
-        this.rankPrefix = rankPrefix;
+
+    public Rank(String id, String name, String prefix, int priority){
+        this.id = id;
+        this.name = name;
+        this.prefix = prefix;
         this.priotity = priority;
     }
+
     public void set(String key, Object value){
         switch (key) {
-            case "rankId": rankId = (String) value; return;
-            case "rankName": rankName = (String) value; return;
-            case "rankPrefix": rankPrefix = (String) value; return;
+            case "id": id = (String) value; return;
+            case "name": name = (String) value; return;
+            case "prefix": prefix = (String) value; return;
             case "priority": if (canParseInt((String) value)) priotity = Integer.parseInt((String) value);; return;
-            case "adminPerms": adminPerms = (boolean) value; return;
-            case "consolePerms": consolePerms = (boolean) value; return;
+            case "admin": admin = (boolean) value; return;
+            case "console": console = (boolean) value; return;
         }
     }
+
     public Object get(String key){
         return switch (key) {
-            case "rankId" -> rankId;
-            case "rankName" -> rankName;
-            case "rankPrefix" -> rankPrefix;
+            case "id" -> id;
+            case "name" -> name;
+            case "prefix" -> prefix;
             case "priority" -> priotity;
-            case "adminPerms" -> adminPerms;
-            case "consolePerms" -> consolePerms;
+            case "admin" -> admin;
+            case "console" -> console;
             default -> null;
         };
     }

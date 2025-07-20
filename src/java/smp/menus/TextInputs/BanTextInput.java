@@ -1,13 +1,12 @@
 package smp.menus.TextInputs;
 
-import mindustry.gen.Player;
 import smp.menus.TextInput;
 import smp.models.PlayerData;
 
 import java.util.Objects;
 
-import static smp.functions.Utilities.banPlayer;
 import static smp.functions.Wrappers.formatBanTime;
+import static smp.other.BanSystem.banPlayer;
 
 public class BanTextInput extends TextInput {
 

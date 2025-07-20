@@ -6,7 +6,7 @@ import mindustry.gen.Player;
 import mindustry.graphics.Pal;
 import smp.commandSystem.mindustry.BasicAdminCommand;
 
-import static smp.Variables.chatFormatter;
+import static smp.vars.Variables.chatFormatter;
 
 public class AdminChatCommand extends BasicAdminCommand {
     public AdminChatCommand() {

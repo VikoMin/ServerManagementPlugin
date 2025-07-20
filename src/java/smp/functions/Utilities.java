@@ -1,30 +1,11 @@
 package smp.functions;
 
 import arc.Core;
-import arc.Events;
-import arc.struct.Seq;
-import mindustry.Vars;
-import mindustry.game.EventType;
-import mindustry.game.Team;
-import mindustry.gen.Call;
-import mindustry.gen.Player;
-import mindustry.maps.Map;
-import mindustry.server.ServerControl;
-import org.javacord.api.entity.user.User;
-import smp.models.PlayerData;
-import smp.models.Punishment;
 
 import java.util.*;
 
 import static java.lang.Long.parseLong;
 import static java.lang.Runtime.getRuntime;
-import static smp.Variables.*;
-import static smp.database.players.PlayerFunctions.updateData;
-import static smp.database.punishments.FindPunishment.findPunishmentLastBan;
-import static smp.discord.Bot.messageLogChannel;
-import static smp.discord.embedSystem.embeds.BanEmbed.banEmbed;
-import static smp.functions.FindPlayer.findPlayerByName;
-import static smp.functions.Wrappers.timeToDuration;
 
 public class Utilities {
     public static <T> T notNullElse(T value, T value2){
@@ -32,43 +13,6 @@ public class Utilities {
     }
     public static boolean canParseLong(String s){
         return parseLong(s) != Long.MIN_VALUE;
-    }
-    public static void banPlayer(Date date, String reason, PlayerData data, Player moderator){
-        Punishment punishment = new Punishment("ban", date.getTime(), reason, moderator.plainName());
-        data.punishments.add(punishment);
-        Player plr = findPlayerByName(data.name);
-        if (plr != null){
-            Call.sendMessage(plr.plainName() + " has been banned for: " + reason);
-            plr.con.kick("[red]You have been banned!\n\n" + "[white]Reason: " + reason +"\nDuration: " + timeToDuration(date.getTime()) + " until unban\nIf you think this is a mistake, make sure to appeal ban in our discord: " + discordURL, 0);
-        }
-        updateData(data);
-        messageLogChannel.sendMessage(banEmbed(data, reason, date.getTime(), moderator.plainName()));
-    }
-
-    public static void banPlayer(Date date, String reason, PlayerData data, User moderator){
-        Punishment punishment = new Punishment("ban", date.getTime(), reason, moderator.getName());
-        data.punishments.add(punishment);
-        Player plr = findPlayerByName(data.name);
-        if (plr != null){
-            Call.sendMessage(plr.plainName() + " has been banned for: " + reason);
-            plr.con.kick("[red]You have been banned!\n\n" + "[white]Reason: " + reason +"\nDuration: " + timeToDuration(date.getTime()) + " until unban\nIf you think this is a mistake, make sure to appeal ban in our discord: " + discordURL, 0);
-        }
-        updateData(data);
-        messageLogChannel.sendMessage(banEmbed(data, reason, date.getTime(), moderator.getName()));
-    }
-
-    public static void unbanPlayer(PlayerData data){
-        Punishment punishment = findPunishmentLastBan(data);
-        data.punishments.remove(punishment);
-        punishment.punishmentType = "unbanned";
-        data.punishments.add(punishment);
-        updateData(data);
-    }
-
-    public static void warnPlayer(Date date, String reason, PlayerData data, User moderator){
-        Punishment punishment = new Punishment("warn", date.getTime(), reason, moderator.getName());
-        data.punishments.add(punishment);
-        updateData(data);
     }
 
     public static void makeCoreSettingString(String settingInputText, String settingName){
@@ -105,30 +49,22 @@ public class Utilities {
         return string.toString();
     }
 
-    public static void voteCanceled(){
-        Call.sendMessage("[red]Vote has been canceled!");
-        votes.set(0);
-        votedPlayer.clear();
-    }
-
-    public static void voteSuccess(Map map){
-        Call.sendMessage("[green]Vote success! Changing map!");
-        ServerControl.instance.setNextMap(map);
-        Events.fire(new EventType.GameOverEvent(Team.derelict));
-        votes.set(0);
-        votedPlayer.clear();
-    }
-
-    public static Seq<Map> getMaps(){
-        Seq<Map> maps = new Seq<>();
-        for(Map map : Vars.maps.customMaps()){
-            maps.add(map);
-        }
-        return maps;
-    }
-
     public static void exit(){
         Core.app.exit();
         getRuntime().exit(0);
+    }
+
+    public static <T, K> HashMap<T, K> createHashMap(T[] keys, K[] values){
+        HashMap<T, K> map = new HashMap<>();
+        for (int i = 0; i < keys.length; i++){
+            map.put(keys[i], values[i]);
+        }
+        return map;
+    }
+
+    public static <T, K> HashMap<T, K> createHashMap(T key, K value){
+        HashMap<T, K> map = new HashMap<>();
+        map.put(key, value);
+        return map;
     }
 }

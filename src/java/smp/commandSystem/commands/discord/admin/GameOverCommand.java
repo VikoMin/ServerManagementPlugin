@@ -6,8 +6,6 @@ import mindustry.game.Team;
 import org.javacord.api.event.message.MessageCreateEvent;
 import smp.commandSystem.discord.DiscordCommand;
 
-import static java.lang.Integer.parseInt;
-
 public class GameOverCommand extends DiscordCommand {
     public GameOverCommand() {
         super("gameover", " -> executes gameover.", 0,true, false);

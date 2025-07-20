@@ -7,7 +7,7 @@ import smp.models.Punishment;
 
 import java.util.Date;
 
-import static smp.Variables.*;
+import static smp.vars.Variables.*;
 import static smp.database.players.FindPlayerData.getPlayerDataByIP;
 import static smp.database.punishments.FindPunishment.findPunishmentLastBan;
 import static smp.functions.Wrappers.timeToDuration;

@@ -11,7 +11,7 @@ import mindustry.net.Administration;
 import mindustry.net.Packets;
 import smp.commandSystem.mindustry.MindustryCommand;
 
-import static smp.Variables.*;
+import static smp.vars.Variables.*;
 import static smp.functions.FindPlayer.findPlayerByName;
 
 public class VotekickCommand extends MindustryCommand<Player> {

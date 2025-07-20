@@ -6,6 +6,7 @@ import smp.models.PlayerData;
 
 import static arc.util.Strings.canParseInt;
 import static arc.util.Strings.parseInt;
+import static java.lang.Boolean.parseBoolean;
 import static smp.database.players.FindPlayerData.getPlayerData;
 import static smp.errors.MindustryErrors.*;
 import static smp.history.History.revert;
@@ -15,11 +16,14 @@ public class RevertCommand extends BasicAdminCommand {
         super(
                 "revert"
                 , "Reverts the last broken blocks in certain radius and certain UUID"
-                , new arc.struct.Seq<String>().add("<radius>").add("<playerdata>"), true);
+                , new arc.struct.Seq<String>().add("<radius>").add("<playerdata>").add("[options]"), true);
     }
 
     @Override
     public void run(String[] args, Player parameter) throws CommandException {
+        boolean force = false;
+        boolean flush = false;
+
         PlayerData data;
         if (canParseInt(args[1])) {
             data = getPlayerData(parseInt(args[1]));
@@ -30,7 +34,12 @@ public class RevertCommand extends BasicAdminCommand {
 
         if (!canParseInt(args[0])) throw new CommandException("integer.parse.fail", parameter);
 
-        revert(parseInt(args[0]), parameter.tileX(), parameter.tileY(), data.uuid);
+        if (args.length > 2) {
+            force = Boolean.parseBoolean(args[2].split(":")[0]);
+            flush = Boolean.parseBoolean(args[2].split(":")[1]);
+        }
+
+        revert(parseInt(args[0]), parameter.tileX(), parameter.tileY(), data.uuid, force);
 
     }
 }

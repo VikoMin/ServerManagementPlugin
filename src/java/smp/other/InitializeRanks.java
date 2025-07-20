@@ -15,7 +15,7 @@ public class InitializeRanks {
         try (MongoCursor<Rank> cursor = rankCollection.find().iterator()) {
             while (cursor.hasNext()) {
                 Rank rank = cursor.next();
-                Log.debug("Rank has been added: " + rank.rankName);
+                Log.debug("Rank has been added: " + rank.name);
                 ranks.add(rank);
             }
         }

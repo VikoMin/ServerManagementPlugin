@@ -1,11 +1,6 @@
 package smp.database.players;
 
-import arc.util.Log;
 import arc.util.Timer;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.ReplaceOptions;
 import mindustry.gen.Groups;
 import mindustry.gen.Player;
 import mindustry.net.NetConnection;
@@ -14,12 +9,10 @@ import smp.models.Rank;
 
 import java.util.Objects;
 
-import static com.mongodb.client.model.Filters.eq;
 import static smp.database.DatabaseSystem.*;
 import static smp.database.players.FindPlayerData.getPlayerData;
 import static smp.database.players.FindPlayerData.getPlayerDataByIP;
-import static smp.database.players.PlayerFunctions.updateData;
-import static smp.database.ranks.FindRank.findRank;
+import static smp.functions.Utilities.createHashMap;
 
 /**
  This system contains ONLY player or playerdata-related functions that interact with database
@@ -32,7 +25,7 @@ public class PlayerChecks {
         if (eventPlayer == null) return;
 
         PlayerData data = getPlayerData(uuid);
-        Rank rank = findRank(data.rank);
+        Rank rank = findDatabaseDocument(rankCollection, createHashMap("id", data.rank));
         String tempName = data.rawName;
 
         if (rank == null) return;
@@ -40,7 +33,7 @@ public class PlayerChecks {
         if (!Objects.equals(data.customPrefix, "<none>")){
             eventPlayer.name = data.customPrefix + " [" + "#" + eventPlayer.color.toString() + "]" + tempName;
         } else {
-            eventPlayer.name = rank.rankPrefix +" [" + "#" + eventPlayer.color.toString() + "]" + tempName;
+            eventPlayer.name = rank.prefix +" [" + "#" + eventPlayer.color.toString() + "]" + tempName;
         }
     }
 
@@ -50,7 +43,7 @@ public class PlayerChecks {
             return;
         }
         data.ip = player.address;
-        UpdateDatabaseDocument(data, playerCollection, "_id", data.id);
+        updateDatabaseDocument(data, playerCollection, "_id", data.id);
     }
 
     public static void initializeCounter(){
@@ -59,7 +52,7 @@ public class PlayerChecks {
                 PlayerData data = getPlayerData(player.uuid());
                 if (data == null) return;
                 data.playtime += 1;
-                updateData(getPlayerData(player.uuid()), data);
+                updateDatabaseDocument(data, playerCollection, "_id", getPlayerData(player.uuid()).id);
             }
         }, 0, 60);
     }
