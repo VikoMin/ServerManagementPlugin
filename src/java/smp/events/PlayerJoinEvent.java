@@ -7,7 +7,7 @@ import mindustry.gen.Player;
 import smp.menus.Menus.WelcomeMenu;
 import smp.models.PlayerData;
 
-import static smp.database.players.PlayerChecks.DisplayPlayerRank;
+import static smp.database.players.PlayerChecks.displayPlayerRank;
 import static smp.database.players.PlayerFunctions.fillData;
 import static smp.database.players.PlayerFunctions.findPlayerDataOrCreate;
 import static smp.functions.Checks.kickIfBanned;
@@ -21,7 +21,7 @@ public class PlayerJoinEvent {
         fillData(data, plr);
         kickIfBanned(plr);
         String joinMessage = data.joinMessage;
-        DisplayPlayerRank(plr.uuid());
+        displayPlayerRank(plr.uuid());
         Call.sendMessage(Strings.format(joinMessage + " [grey][" + data.id + "]", plr.name()));
         Log.info(plr.plainName() + " joined! " + "[" + data.id + "]");
         if (welcomeMenuEnabled) {

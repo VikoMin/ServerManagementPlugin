@@ -10,7 +10,6 @@ import mindustry.mod.*;
 import mindustry.net.Packets;
 import smp.commandSystem.CommandRegister;
 import smp.commandSystem.mindustry.MindustryCommand;
-import smp.system.config.ConfigSystem;
 
 import java.util.List;
 
@@ -62,7 +61,7 @@ public class Main extends Plugin{
         }
         Vars.net.handleServer(Packets.Connect.class, (con, connect) -> {
             Events.fire(new EventType.ConnectionEvent(con));
-            CheckPlayerIP(con);
+            checkPlayerIP(con);
 
             if (netServer.admins.isIPBanned(connect.addressTCP) || netServer.admins.isSubnetBanned(connect.addressTCP)){
                 con.kick(Packets.KickReason.banned);

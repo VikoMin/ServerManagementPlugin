@@ -18,8 +18,9 @@ public class ListRanksCommand extends DiscordCommand {
         for (Rank rank : ranks){
             builder
                     .append("Rank ID: ").append(rank.id).append("\n")
-                    .append("Rank Name: ").append(rank.name).append("\n")
-                    .append("Rank Prefix: ").append(rank.prefix).append("\n").append("\n");
+                    .append("Rank name: ").append(rank.name).append("\n")
+                    .append("Rank priority: ").append(rank.priotity).append("\n")
+                    .append("Rank prefix: ").append(rank.prefix).append("\n").append("\n");
 
         }
         builder.append("```");

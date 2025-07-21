@@ -19,7 +19,7 @@ import static smp.functions.Utilities.createHashMap;
  */
 
 public class PlayerChecks {
-    public static void DisplayPlayerRank(String uuid) {
+    public static void displayPlayerRank(String uuid) {
         Player eventPlayer = Groups.player.find(p -> p.uuid().contains(uuid));
 
         if (eventPlayer == null) return;
@@ -37,7 +37,7 @@ public class PlayerChecks {
         }
     }
 
-    public static void CheckPlayerIP(NetConnection player){
+    public static void checkPlayerIP(NetConnection player){
         PlayerData data = getPlayerDataByIP(player.address);
         if (data == null) {
             return;

@@ -17,6 +17,7 @@ import java.util.Date;
 
 import static mindustry.Vars.logic;
 import static mindustry.Vars.net;
+import static smp.vars.Variables.discordEnabled;
 import static smp.vars.Variables.discordURL;
 import static smp.database.DatabaseSystem.updateDatabaseDocument;
 import static smp.database.DatabaseSystem.playerCollection;
@@ -91,6 +92,8 @@ public class BanSystem {
             plr.con.kick("[red]You have been banned!\n\n" + "[white]Reason: " + reason +"\nDuration: " + timeToDuration(date.getTime()) + " until unban\nIf you think this is a mistake, make sure to appeal ban in our discord: " + discordURL, 0);
         }
         updateDatabaseDocument(data, playerCollection, "_id", data.id);
-        messageLogChannel.sendMessage(banEmbed(data, reason, date.getTime(), moderator.plainName()));
+        if (discordEnabled) {
+            messageLogChannel.sendMessage(banEmbed(data, reason, date.getTime(), moderator.plainName()));
+        }
     }
 }

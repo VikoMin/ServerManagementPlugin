@@ -26,10 +26,9 @@ public class ReflectSystem {
                 Class<?> cls = Class.forName((String) className);
                 classes.add(cls);
             } catch (ClassNotFoundException e) {
-                System.out.println("Agh! Class not found, what a shame...");
+                Log.err("Class is not found");
             }
         }
-
         return classes;
     }
 

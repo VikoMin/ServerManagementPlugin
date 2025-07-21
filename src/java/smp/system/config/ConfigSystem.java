@@ -1,11 +1,9 @@
 package smp.system.config;
 
 import arc.util.Log;
-import org.bson.json.JsonObject;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import rhino.json.JsonParser;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -48,7 +46,6 @@ public class ConfigSystem {
     }
 
     public static <T> T getConfigField(String name, HashMap<String, T> map){
-        System.out.println("Got tha field: " + name + " = " + map.get(name));
         return map.get(name);
     }
 
