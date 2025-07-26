@@ -1,0 +1,14 @@
+/// COMMANDS
+
+Basic structure:
+
+│command.[type].[name].[argument]
+│____
+    │Type - Either discord or mindustry (Or any other type you can think of).
+    │
+    │Name - Command name.
+    │
+    │Arguments - There is only 2 automated arguments
+    │____
+        │ description - Command description.
+        │ confirm - String that appears when whole execution process was successful

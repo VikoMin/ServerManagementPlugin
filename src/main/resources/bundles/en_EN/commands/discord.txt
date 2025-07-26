@@ -1,0 +1,58 @@
+command.discord.adminadd.description = "<player> -> Grants admin permissions to the player."
+command.discord.adminadd.confirm = "${0} has received admin permissions."
+command.discord.adminadd.has-admin = "This player is already admin!"
+
+command.discord.adminrew.description = "<player> -> Revokes admin permissions from the player."
+command.discord.adminrew.confirm = "${0} admin permissions has been revoked."
+
+command.discord.ban.description = "<player> <time> <reason> -> Bans the player."
+command.discord.ban.banned = "${0} has been banned."
+
+command.discord.exit.description = "-> Shutdowns server."
+
+command.discord.gameover.description = "-> Forcibly ends current game."
+
+command.discord.listpunishments.description = "<player> -> Shows punishments of the player."
+
+command.discord.pardon.description = "<player> - Removes the kick effect from player."
+command.discord.pardon.confirm = "${0} has been pardoned."
+
+command.discord.unban.description = "<player> -> Unbans the player."
+command.discord.unban.confirm = "${0} has been unbanned."
+
+command.discord.warn.description = "<player> -> Warns the player."
+command.discord.warn.confirm = "${0] has been warned."
+
+command.discord.help.description = "-> Shows the list of commands."
+
+command.discord.listplayers.description = "-> Shows current players on server."
+command.discord.listplayers.title = "Players online:"
+
+command.discord.listranks.description = "-> Shows available ranks."
+command.discord.listranks.title = "Ranks:"
+
+command.discord.login.description = "<player> -> Links your discord account to mindustry (You must be in-game to link your account)."
+
+command.discord.ping.description = "-> Ping!"
+
+command.discord.search.description = "<name> -> Tries to find all players with familiar name."
+
+command.discord.stats.description = "<id/name/uuid> - Views the statistic of the player."
+
+command.discord.conhelp.description = "-> Shows the list of console commands"
+
+command.discord.createrank.description = "<id> <name> <prefix> <priority> -> Creates new rank."
+command.discord.createrank.confirm = "Rank has been created!"
+
+command.discord.deletemap.description = "<id/name/uuid> -> Shows punishments of the player."
+
+command.discord.deleterank.description = "<id> -> Deletes existing rank."
+command.discord.deleterank.confirm = "Rank has been deleted!"
+
+command.discord.exec.description = "<command> -> Executes server command."
+
+command.discord.setrank.description = "<rank> <playerID> -> Sets rank of the player."
+command.discord.setrank.confirm = "Rank of ${0} has been changed to ${1}"
+
+command.discord.uploadmap.description = "<attachments...> -> Uploads map to the server."
+command.discord.uploadmap.confirm = "Map have been uploaded!"

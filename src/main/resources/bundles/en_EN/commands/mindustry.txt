@@ -1,0 +1,46 @@
+command.mindustry.a.description = "Sends message to admin chat."
+
+command.mindustry.gameover.description = "Executes gameover event."
+
+command.mindustry.revert.description = "Reverts the last broken blocks in certain radius and certain UUID"
+
+command.mindustry.help.description = "Lists all commands."
+
+command.mindustry.history.description = "Enables/Disables history mode"
+command.mindustry.history.enabled = "History enabled!"
+command.mindustry.history.disabled = "History disabled!"
+
+command.mindustry.maps.description = "Shows server maps"
+command.mindustry.maps.no-maps-found = "[red]No maps detected!"
+
+command.mindustry.rtv.description = "Rock the vote to change map!"
+command.mindustry.rtv.vote-running = "Vote is already running!"
+command.mindustry.rtv.vote-start = "${0} [white] Started vote for map skip -> ${1}/${2}, y/n to vote"
+command.mindustry.rtv.vote-cancel = "[red]Vote has been canceled!"
+command.mindustry.rtv.success = "[green]Vote success! Changing map!"
+
+command.mindustry.stats.description = "Shows statistics of player"
+
+command.mindustry.sync.description = "Re-synchronize world state."
+command.mindustry.sync.cooldown = "[scarlet]You may only /sync every 5 seconds."
+
+command.mindustry.t.description = "Sends message to your team only""
+
+command.mindustry.vote.description = "Vote to kick the current player. [red]Admin can cancel the voting with 'c'."
+command.mindustry.vote.canceled = "[lightgray]Vote canceled by admin[orange] ${0}"
+command.mindustry.vote.already-voted = "[scarlet]You've already voted @. Sit down."
+command.mindustry.vote.vote-yourself = "[scarlet]You can't vote on your own trial."
+command.mindustry.vote.vote-other-team = "[scarlet]You can't vote for other teams."
+command.mindustry.vote.incorrect-argument = "[scarlet]Vote either 'y' (yes) or 'n' (no)."
+
+command.mindustry.votekick.description = "Reverts the last broken blocks in certain radius and certain UUID"
+command.mindustry.votekick.disabled = "[scarlet]Vote-kick is disabled on this server."
+command.mindustry.votekick.not-enough-player = "[scarlet]At least 3 players are needed to start a votekick."
+command.mindustry.votekick.in-progress = "[scarlet]A vote is already in progress."
+command.mindustry.votekick.vote-yourself = "[scarlet]You can't vote to kick yourself."
+command.mindustry.votekick.vote-admin = "[scarlet]Did you really expect to be able to kick an admin?"
+command.mindustry.votekick.vote-other-team = "[scarlet]Only players on your team can be kicked."
+command.mindustry.votekick.cooldown = "[scarlet]You must wait ${0} minutes between votekicks.""
+
+command.mindustry.w.description = "Whispers to other player"
+command.mindustry.w.success = "[grey]${0} whispers[white]: ${1}"
