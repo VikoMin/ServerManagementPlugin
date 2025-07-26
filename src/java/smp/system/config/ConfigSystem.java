@@ -59,7 +59,7 @@ public class ConfigSystem {
             messageLogChannelID = getConfigField("discord.log.message-channel-id", longs);
             messageBanLogChannelID = getConfigField("discord.log.ban-channel-id", longs);
             discordURL = getConfigField("discord.configuration.invite-url", strings);
-            discordToken = getConfigField("discord.configuration.token", strings);
+            discordToken = getConfigField("discord.configuration.discord-url", strings);
             discordPrefix = getConfigField("discord.configuration.prefix", strings);
             allDiscordCommandsEnabled = getConfigField("discord.commands.all-commands", booleans);
         }
