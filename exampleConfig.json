@@ -1,0 +1,53 @@
+# This is an example of config file.
+# It should be put in serverDirectory/config as 'config.json'
+# Make sure to remove these comments once you done with configuration, thank you
+
+{
+  "global": {
+    "configuration": {
+      "loc": "en",
+      "playerbased-loc": false,
+      "mongodb-ip": "mongodb://localhost:27017/",
+      "type": "default"
+    }
+  },
+  "mindustry": {
+    "commands": {
+      "all-commands": true,
+      "command-whitelist": {
+        # This system uses command name as a key. Example - "revert": true
+        # Makes sense only if "all-commands" is false
+      }
+    },
+    "ranks": {
+      "enabled": true,
+      "secure-ranks": true
+    },
+    "menus": {
+      "welcome-menu": true,
+      "welcome-menu-title": "title",
+      "welcome-menu-text": "text"
+    },
+    "griefing-warnings": true,
+    "better-bans": true,
+    "time-counter": true
+  },
+  "discord": {
+    "enabled": true,
+    "configuration": {
+      "mindustry-moderator-id": 123,
+      "mindustry-console-id": 123,
+      "prefix": "pfx",
+      "invite-url": "url",
+      "token": "token"
+    },
+    "commands": {
+      "all-commands": true,
+      "command-whitelist": {}
+    },
+    "log": {
+      "message-channel-id": 123,
+      "ban-channel-id": 123
+    }
+  }
+}
