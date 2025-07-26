@@ -39,7 +39,7 @@
       "mindustry-console-id": 123,
       "prefix": "pfx",
       "invite-url": "url",
-      "discord-url": "token"
+      "token": "token"
     },
     "commands": {
       "all-commands": true,
