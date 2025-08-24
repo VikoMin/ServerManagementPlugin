@@ -50,7 +50,7 @@ public class DatabaseSystem {
             Core.app.exit();
         }
 
-        db = mongoClient.getDatabase("mindustry").withCodecRegistry(pojoCodecRegistry);
+        db = mongoClient.getDatabase("frostheaven").withCodecRegistry(pojoCodecRegistry);
         playerCollection = db.getCollection("players", PlayerData.class);
         rankCollection = db.getCollection("ranks", Rank.class);
     }
